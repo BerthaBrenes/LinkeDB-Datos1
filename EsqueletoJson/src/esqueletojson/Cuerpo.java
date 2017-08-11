@@ -4,6 +4,8 @@
  * and open the template in the editor.
  */
 package esqueletojson;
+import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import org.json.simple.JSONArray;
@@ -12,15 +14,27 @@ import org.json.simple.JSONObject;
  *
  * @author berta
  */
+
 public class Cuerpo {
+    /**
+     * 
+     */
     private String nombreValor;
     private String TipoValor;
-    private boolean LlaveValor;
-    private boolean RequerimientoValor;
+    private int  LlaveValor;
+    private int  RequerimientoValor;
     private String DefectoValor;
     private String NombreDocumento;
-    
-    public Cuerpo(String documento,String name, String tipo, String defecto, boolean llave, boolean requerido){
+    /**
+     * 
+     * @param documento
+     * @param name
+     * @param tipo
+     * @param defecto
+     * @param llave
+     * @param requerido 
+     */
+    public Cuerpo(String documento,String name, String tipo, String defecto, int llave, int requerido){
         nombreValor = name;
         TipoValor = tipo;
         LlaveValor = llave;
@@ -34,15 +48,20 @@ public class Cuerpo {
              JSONArray list = new JSONArray();
          }
          obj.put(nombreValor,DefectoValor);
-        try(FileWriter file = new FileWriter(NombreDocumento+".json"))
-        {
-           file.write(obj.toString());
-           file.flush();
+         FileReader fr=null;
+        try{
+            fr= new FileReader(NombreDocumento+".json");
         }
-        catch(IOException e){
-            e.printStackTrace();
-            
+        catch(Exception e){
+          File f = new File("myJason.txt");  
+          try{
+            f.createNewFile();
+            fr= new FileReader(NombreDocumento+".json");
+          }catch(Exception ex){
+              System.err.print("El archivo myHason no existe y no puede ser creado.");
+          }
         }
+        
         
         System.out.println(obj);
     
