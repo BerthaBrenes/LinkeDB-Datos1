@@ -22,12 +22,36 @@ public class EsqueletoJson {
     public static void setP(int dato){
         valorP = dato;
     }
+    
     public static int getP(){
         return valorP;
     }
     
     public static void main(String[] args) {
-        
+        Lista lista = new Lista();
+        int opcion =0, el;
+        do {
+            try{
+                opcion = Integer.parseInt(JOptionPane.showInputDialog(null,"1. Agregar un Elemento al Inicio de la lista\n 2.Mostrar los Datos de la lista\n 3.Eliminar dato\n 4. salir", "Menu de Opciones",3));
+                switch(opcion){
+                    case 1:   
+                    el = Integer.parseInt(JOptionPane.showInputDialog(null,"Ingresar el Elemento:","Insertando al inicio",3));
+                    lista.Add(el);
+                    break;
+                    case 2:
+                        lista.Print();
+                        break;
+                    case 3:
+                        lista.Delete();
+                        break;
+                    case 4 :
+                        break;
+                }
+            }catch (Exception e){   
+            }
+            
+        } while(opcion != 4);
+        /**
         JOptionPane.showMessageDialog(null,"Bienvenidos a la bases de datos linkedb");
         // TODO code application logic here
         String documento = JOptionPane.showInputDialog("Cual es el nombre del documento que desea crear");
@@ -72,7 +96,7 @@ public class EsqueletoJson {
         
         
    
-        
+     */   
     }
     
 }
