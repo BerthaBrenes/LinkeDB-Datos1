@@ -9,111 +9,142 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Iterator;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 /**
  *
  * @author berta
  */
-public class Metadata {
-    private String documento;
-    private String nombre;
-    private String tipo;
-    private int foranea;
-    private int primaria;
-    private int requerido;
-    private String valor;
-    JSONObject obj = new JSONObject();
-    
-    public Metadata(String Doc,String nombre,String tipo, int foranea, int Primaria, int Requerido, String valor){
-        SetDocumento(Doc);
-        SetNombre(nombre);
-        SetTipo(tipo);
-        SetForanea(foranea);
-        SetPrimary(Primaria);
-        SeRequerido(Requerido);
-        SetValor(valor);
-        FileReader fr=null;
-        try{
-            fr= new FileReader("metadata.json");
-        }catch(Exception e){
-          File f = new File("metadata.json");  
-          try{
-            f.createNewFile();
-            fr= new FileReader("metadata.json");
-          }catch(Exception ex){
-              System.err.print("El archivo metadata no existe y no puede ser creado.");
-          }
+public class Metadata implements Comparable<Metadata> {
+
+    private String carpeta;
+    private Lista<String> listaJson;
+
+    /**
+     * Constructor de Metadata donde lo que voy a hacer es crear una lista de
+     * Json
+     *
+     * @param carpeta :nombre de la carpeta
+     */
+    public Metadata(String carpeta) {
+        this.carpeta = carpeta;
+        listaJson = new Lista();
+
+    }
+
+    /**
+     * Este metodo carga toda la informacion que existe en la carpeta usando la
+     * metadata
+     *
+     */
+    public void CargoInfo() {
+        JSONParser parser = new JSONParser();
+        FileReader fr = null;
+        try {
+            fr = new FileReader("data/" + carpeta + "/metadata.json");
+        } catch (Exception e) {
+            System.err.print("El archivo no se pudo abrir");
         }
-        IngresarDatos();
-        Cuerpo json = new Cuerpo(GetDocumento(),GetNombre(),GeTipo(),GetValor(),GetForanea(),GetRequerido());
-        
-    }
-    public void SetDocumento(String dato){
-        documento = dato;
-    }
-    public String GetDocumento(){
-        return documento;
-    }
-    public void SetNombre(String dato){
-        nombre = dato;
-    }
-    public String GetNombre(){
-        return nombre;
-    }
-    public void SetTipo(String dato){
-        tipo = dato;
-    }
-    public String GeTipo(){
-        return tipo;
-    }
-    public void SetForanea(int dato){
-        foranea = dato;
-    }
-    public int GetForanea(){
-        return foranea;
-    }
-    public void SetPrimary(int dato){
-        primaria = dato;
-    }
-    public int GetPrimary(){
-        return primaria;
-    }
-    public void SetValor(String dato){
-        valor = dato;
-    }
-    public String GetValor(){
-        return valor;
-    }
-    public void SeRequerido(int dato){
-        requerido = dato;
-    }
-    public int GetRequerido(){
-        return requerido;
-    }
-    public void IngresarDatos(){
-       obj.put("Archivo", GetDocumento()); 
-       JSONArray list = new JSONArray();
-       JSONObject atributos = new JSONObject();
-       atributos.put("\nName", GetNombre());
-       atributos.put("\nType",GeTipo());
-       atributos.put("\nForanea", GetForanea());
-       atributos.put("\nPrimary",GetPrimary());
-       atributos.put("\nMandatory", GetRequerido());
-       atributos.put("\nDefecto",GetValor());
-       list.add(0,atributos);
-       obj.put("\natributos", list);
-       try(FileWriter file = new FileWriter("metadata.json"))
-        {
-           file.write(obj.toString());
-           file.flush();
+        try {
+            Object obj = parser.parse(fr);
+            JSONObject jsonObjeto = (JSONObject) obj;
+            String name = (String) jsonObjeto.get("nombre");
+            System.out.println("el nombre es: " + name);
+            JSONArray courseArray = (JSONArray) jsonObjeto.get("DocumentosJson");
+            Iterator<String> iterator = courseArray.iterator();
+            while (iterator.hasNext()) {
+                System.out.println("Json existentes: " + iterator.next());
+            }
+        } catch (ParseException ex) {
+            ex.printStackTrace();
+        } catch (IOException ex) {
+            ex.printStackTrace();
         }
-        catch(IOException e){
+
+    }
+
+    /**
+     * Se encarga de guardar cualquier json creado en la carpeta en un nuevo
+     * json
+     */
+    public void GuardarJson() {
+        JSONObject obj = new JSONObject();
+        obj.put("nombre", carpeta);
+        JSONArray listjson = new JSONArray();
+        for (int i = 0; i < listaJson.get_Length(); i++) {
+            listjson.add(listaJson.get(i));
+        }
+        obj.put("DocumentosJson", listjson);
+        try {
+            FileWriter file = new FileWriter("data/" + carpeta + "/metadata.json");
+            file.write(obj.toString());
+            file.flush();
+        } catch (IOException e) {
             e.printStackTrace();
-            
+
         }
-       
+
     }
+
+    /**
+     * Agregar Json agrega json en la carpeta donde se encuentre la metadata y
+     * ademas de eso lo almacena en la metadata
+     *
+     * @param json
+     */
+    public void AgregarJson(String json) {
+        listaJson.Add(json);
+        JSONObject obj = new JSONObject();
+        obj.put("nombre", json);
+        try {
+            FileWriter file = new FileWriter("data/" + carpeta + "/" + json + ".json");
+            file.write(obj.toString());
+            file.flush();
+            //Nodo<String> gato = listaCarpeta.Buscar(carpeta);
+        } catch (IOException e) {
+            e.printStackTrace();
+
+        }
+        GuardarJson();
+    }
+
+    public void BuscarJson(String json) {
+        File directorio = new File("data/" + carpeta + "/" + json + ".json");
+        System.out.println(listaJson.Buscar(json));
+        if (directorio.exists()) {
+            System.out.println("existe");
+        } else {
+            System.out.println("no existe");
+        }
+    }
+
+    public void EliminarJson(String json) {
+        File directorio = new File("data/" + carpeta+"/"+json+".json");
+        if (directorio.exists()) {
+            try {
+                directorio.deleteOnExit();
+            } catch (Exception e) {
+
+            }
+        } else {
+            System.out.println("no existe");
+        }
+    }
+
     
+
+    @Override
+    public int compareTo(Metadata o) {
+        return this.carpeta.compareTo(o.carpeta);
+    }
+
+    @Override
+    public String toString() {
+        return this.carpeta;
+    }
+
 }
