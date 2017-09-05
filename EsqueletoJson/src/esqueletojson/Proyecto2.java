@@ -38,17 +38,17 @@ public class Proyecto2 {
         metadata.AgregarJson(Json1);
         String Json2 = JOptionPane.showInputDialog("agregar otro json");
         metadata.AgregarJson(Json2);
-        * */
+        
         JsonStore carpeta = JsonStore.GetInstance();
         String documento = "segundo";
         Metadata metadata = new Metadata(documento);
-        metadata.EliminarJson("json1");
-        /**
-        Lista lista = new Lista();
-        int opcion =0, el;
+        metadata.EliminarJson("json1");*/
+        
+        ListaCir<Integer> lista = new ListaCir<Integer>();
+        int opcion =0, el,eli;
         do {
             try{
-                opcion = Integer.parseInt(JOptionPane.showInputDialog(null,"1. Agregar un Elemento al Inicio de la lista\n 2.Mostrar los Datos de la lista\n 3.Eliminar dato\n 4. salir", "Menu de Opciones",3));
+                opcion = Integer.parseInt(JOptionPane.showInputDialog(null,"1. Agregar un Elemento al Inicio de la lista\n 2.Mostrar los Datos de la lista\n 3.Buscar y eliminar dato\n 4. salir", "Menu de Opciones",3));
                 switch(opcion){
                     case 1:   
                     el = Integer.parseInt(JOptionPane.showInputDialog(null,"Ingresar el Elemento:","Insertando al inicio",3));
@@ -58,7 +58,8 @@ public class Proyecto2 {
                         lista.Print();
                         break;
                     case 3:
-                        lista.Delete();
+                        eli = Integer.parseInt(JOptionPane.showInputDialog(null,"Ingresar elemento a buscar","Eliminar Dato",3));
+                        System.out.println(lista.Eliminar(eli));
                         break;
                     case 4 :
                         break;
@@ -67,7 +68,7 @@ public class Proyecto2 {
             }
             
         } while(opcion != 4);
-        
+        /**
         JOptionPane.showMessageDialog(null,"Bienvenidos a la bases de datos linkedb");
         // TODO code application logic here
         String documento = JOptionPane.showInputDialog("Cual es el nombre del documento que desea crear");

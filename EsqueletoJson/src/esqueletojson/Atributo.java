@@ -16,6 +16,7 @@ public class Atributo implements Comparable<Atributo> {
   public Llave llave;
   public boolean requerido;
 
+
     @Override
     public int compareTo(Atributo o) {
         return this.nombre.compareTo(o.nombre);

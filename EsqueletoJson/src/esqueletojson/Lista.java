@@ -14,6 +14,12 @@ public class Lista<T extends Comparable<T>> {
     protected Nodo<T> head;
     protected Nodo<T> tail;   
     private int length;
+    
+    public Lista(){
+        head = null;
+        tail = null;
+        length = 0;       
+    }
     public T get(int i){
       if (i >length){
           return null;
@@ -27,11 +33,6 @@ public class Lista<T extends Comparable<T>> {
         return  actual.getDato();
       }
     }
-    public Lista(){
-        head = null;
-        tail = null;
-        length = 0;       
-    }
     public int get_Length(){
         return length;
     }
@@ -41,7 +42,7 @@ public class Lista<T extends Comparable<T>> {
      * @param n 
      */
     public void Add(T n){
-        Nodo<T> nuevo = new Nodo<>(n);
+        Nodo<T> nuevo = new Nodo<T>(n);
         if(length == 0){//si la lista es vacia
           head = nuevo;
           tail = head;
