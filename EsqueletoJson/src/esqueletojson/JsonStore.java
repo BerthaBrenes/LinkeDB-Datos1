@@ -5,6 +5,7 @@
  */
 package esqueletojson;
 
+import Logica.Lista;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;

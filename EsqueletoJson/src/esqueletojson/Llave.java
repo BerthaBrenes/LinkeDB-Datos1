@@ -10,5 +10,6 @@ package esqueletojson;
  * @author berta
  */
 public enum Llave {
-    
+    Foranea,
+    principal;
 }

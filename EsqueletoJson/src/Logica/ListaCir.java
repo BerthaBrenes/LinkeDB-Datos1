@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package esqueletojson;
+package Logica;
 
 /**
  *
@@ -19,7 +19,10 @@ public class ListaCir<T extends Comparable<T>> {
         this.head = null;
         this.length = 0;
     }
-
+/**
+ * Agrega un elemento(n) a la lista en la cabeza si es el primero y en el final si es mayor a 1
+ * @param n 
+ */
     public void Add(T n) {
         NodoCir<T> nuevo = new NodoCir<T>(n);
         if (length == 0) {//si la lista es vacia
@@ -39,11 +42,18 @@ public class ListaCir<T extends Comparable<T>> {
             nuevo.SetNext(head);
         }
     }
-
+/**
+ * Retorna el largo de la lista
+ * @return 
+ */
     public int GetLength() {
         return this.length;
     }
-
+/**
+ * Esta clase a buscar un elemento (buscado) y va a retornar el elemento
+ * @param buscado
+ * @return 
+ */
     public NodoCir<T> Buscar(T buscado) {
         NodoCir<T> actual = this.head;
         if (this.length != 0) {
@@ -65,7 +75,11 @@ public class ListaCir<T extends Comparable<T>> {
             return null;
         }
     }
-
+/**
+ * Esta funcion borra el elemento(buscado que yo le indique)
+ * @param buscado
+ * @return 
+ */
     public NodoCir<T> Eliminar(T buscado) {
         NodoCir<T> actual = this.head;
         if (this.length > 1) {
@@ -74,6 +88,7 @@ public class ListaCir<T extends Comparable<T>> {
                     this.length -= 1;
                     actual.GetPrev().SetNext(actual.GetNext());
                     actual.GetNext().SetPrev(actual.GetPrev());
+                    break;
 
                 } else {
                     actual = actual.GetNext();
@@ -95,7 +110,11 @@ public class ListaCir<T extends Comparable<T>> {
         }
         return null;
     }
-
+    /**
+     * 
+     * funcion print
+     * recorre la lista e imprime el dato
+     */
     public void Print() {
         NodoCir<T> temp = head;
         System.out.println("contenido de la lista");

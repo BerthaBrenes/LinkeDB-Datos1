@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package esqueletojson;
+import Logica.ListaCir;
 import java.util.Scanner;
 import javax.swing.JOptionPane;
 

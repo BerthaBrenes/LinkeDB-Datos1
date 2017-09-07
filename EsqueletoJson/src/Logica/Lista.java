@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package esqueletojson;
+package Logica;
 
 /**
  *
@@ -20,6 +20,11 @@ public class Lista<T extends Comparable<T>> {
         tail = null;
         length = 0;       
     }
+    /**
+     * Me retorna el valor de la posicion (i) donde se encuentre el nodo
+     * @param i
+     * @return 
+     */
     public T get(int i){
       if (i >length){
           return null;
@@ -33,6 +38,10 @@ public class Lista<T extends Comparable<T>> {
         return  actual.getDato();
       }
     }
+    /**
+     * Retorna el largo de la lista
+     * @return 
+     */
     public int get_Length(){
         return length;
     }
@@ -90,7 +99,11 @@ public class Lista<T extends Comparable<T>> {
             }
         }
     }
-
+/**
+ * Esta clase a buscar un elemento (buscado) y va a retornar el elemento
+ * @param buscado
+ * @return 
+ */
     public Nodo<T> Buscar(T buscado) {
         Nodo<T> actual = this.head;
         while (actual != null) {
@@ -103,6 +116,11 @@ public class Lista<T extends Comparable<T>> {
         return null;
 	
     }
+    /**
+     * Esta clase va a buscar el elemento (buscado) que yo le pida y va a devolver True si existe y False si no existe
+     * @param buscado
+     * @return 
+     */
     public boolean Existe(T buscado){
       Nodo<T> actual = this.head;
         while (actual != null) {

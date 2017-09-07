@@ -5,6 +5,8 @@
  */
 package esqueletojson;
 
+import Logica.Lista;
+
 /**
  *
  * @author berta
