@@ -5,6 +5,7 @@
  */
 package esqueletojson;
 import Logica.ListaCir;
+import Logica.ListaDo;
 import java.util.Scanner;
 import javax.swing.JOptionPane;
 
@@ -45,7 +46,7 @@ public class Proyecto2 {
         Metadata metadata = new Metadata(documento);
         metadata.EliminarJson("json1");*/
         
-        ListaCir<Integer> lista = new ListaCir<Integer>();
+        ListaDo<Integer> lista = new ListaDo<Integer>();
         int opcion =0, el,eli;
         do {
             try{
@@ -60,7 +61,7 @@ public class Proyecto2 {
                         break;
                     case 3:
                         eli = Integer.parseInt(JOptionPane.showInputDialog(null,"Ingresar elemento a buscar","Eliminar Dato",3));
-                        System.out.println(lista.Eliminar(eli));
+                        lista.Delete(eli);
                         break;
                     case 4 :
                         break;

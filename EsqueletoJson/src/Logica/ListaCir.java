@@ -110,6 +110,32 @@ public class ListaCir<T extends Comparable<T>> {
         }
         return null;
     }
+    public void EliminarPrimero() {
+        if (this.length > 1) {
+            this.head.GetNext().SetPrev(this.head.GetPrev());
+            this.head.GetPrev().SetNext(this.head.GetNext());
+            this.head = this.head.GetNext();
+            this.length -=1;
+            
+        } else if (this.length == 1) {
+            this.head = null;
+            this.length -=1 ;
+        }
+    }
+    public void EliminarUltimo(){
+        if(this.length >1){
+            NodoCir<T> iterador = this.head;
+            while(iterador.GetNext() != head){
+                iterador = iterador.GetNext();
+            }
+            iterador.GetNext().SetPrev(iterador.GetPrev());
+            iterador.GetPrev().SetNext(iterador.GetNext());
+            this.length -=1;
+        }else if(this.length ==1 ){
+            this.head = null;
+            this.length -=1;
+        }
+    }
     /**
      * 
      * funcion print
