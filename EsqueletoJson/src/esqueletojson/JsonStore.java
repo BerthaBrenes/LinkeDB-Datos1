@@ -54,22 +54,22 @@ public class JsonStore {
                 //TODO verificar si no han borrado el archivo metadata
                 Metadata metadata = new Metadata(carpeta);
                 metadata.CargoInfo();
-                listaMetadata.Add(metadata);
+                listaMetadata.Insertar(metadata);
 
                 if (listaCarpeta.Existe(carpeta)) {
                     System.out.print(listaCarpeta.Buscar(carpeta));
                 } else {
-                    listaCarpeta.Add(carpeta);
-                    listaCarpeta.Print();
+                    listaCarpeta.Insertar(carpeta);
+                    listaCarpeta.Imprimir();
                 }
 
             } else {
                 directorio.mkdir();
-                listaCarpeta.Add(carpeta);
-                listaCarpeta.Print();
+                listaCarpeta.Insertar(carpeta);
+                listaCarpeta.Imprimir();
                 Metadata metadata = new Metadata(carpeta);
                 metadata.GuardarJson();
-                listaMetadata.Add(metadata);
+                listaMetadata.Insertar(metadata);
 
             }
 

@@ -10,20 +10,24 @@ package Logica;
  * @author berta
  * @param <T>
  */
-public class ListaCir<T extends Comparable<T>> {
+public class ListaCir<T extends Comparable<T>> implements Listas<T>{
 
     protected NodoCir<T> head;
+
     private int length;
 
     public ListaCir() {
         this.head = null;
         this.length = 0;
     }
-/**
- * Agrega un elemento(n) a la lista en la cabeza si es el primero y en el final si es mayor a 1
- * @param n 
- */
-    public void Add(T n) {
+
+    /**
+     * Agrega un elemento(n) a la lista en la cabeza si es el primero y en el
+     * final si es mayor a 1
+     *
+     * @param n
+     */
+    public void Insertar(T n) {
         NodoCir<T> nuevo = new NodoCir<T>(n);
         if (length == 0) {//si la lista es vacia
             this.head = nuevo;
@@ -42,18 +46,22 @@ public class ListaCir<T extends Comparable<T>> {
             nuevo.SetNext(head);
         }
     }
-/**
- * Retorna el largo de la lista
- * @return 
- */
-    public int GetLength() {
+
+    /**
+     * Retorna el largo de la lista
+     *
+     * @return
+     */
+    public int Largo() {
         return this.length;
     }
-/**
- * Esta clase a buscar un elemento (buscado) y va a retornar el elemento
- * @param buscado
- * @return 
- */
+
+    /**
+     * Esta clase a buscar un elemento (buscado) y va a retornar el elemento
+     *
+     * @param buscado
+     * @return
+     */
     public NodoCir<T> Buscar(T buscado) {
         NodoCir<T> actual = this.head;
         if (this.length != 0) {
@@ -75,73 +83,73 @@ public class ListaCir<T extends Comparable<T>> {
             return null;
         }
     }
-/**
- * Esta funcion borra el elemento(buscado que yo le indique)
- * @param buscado
- * @return 
- */
-    public NodoCir<T> Eliminar(T buscado) {
+
+    /**
+     * Esta funcion borra el elemento(buscado que yo le indique)
+     *
+     * @param buscado
+     * @return
+     */
+    public void Eliminar(T buscado) {
         NodoCir<T> actual = this.head;
-        if (this.length > 1) {
-            while (actual.GetNext() != head) {
+        if (this.head.GetDato().compareTo(buscado) == 0) {
+            EliminarPrimero();
+            System.out.println("hey soy el primero");
+        } else {
+            while (actual.GetNext() != this.head) {
                 if (actual.GetDato().compareTo(buscado) == 0) {
-                    this.length -= 1;
+                    System.out.println("entre aca");
                     actual.GetPrev().SetNext(actual.GetNext());
                     actual.GetNext().SetPrev(actual.GetPrev());
+                    this.length -= 1;
                     break;
-
                 } else {
                     actual = actual.GetNext();
                 }
             }
-            if (actual.GetDato().compareTo(buscado) == 0) {
-                this.length -= 1;
-                actual.GetPrev().SetNext(actual.GetNext());
-                actual.GetNext().SetPrev(actual.GetPrev());
+            if (actual.GetNext() == head) {
+                if (actual.GetDato().compareTo(buscado) == 0) {
+                    System.out.println("por alguna puta razon entro aqui");
+                    EliminarUltimo();
+                }
 
             }
-        } else if (this.length == 1) {
-            this.head = null;
-            this.length -= 1;
-
-        } else {
-            System.out.print("no hay elementos que buscar");
-
         }
-        return null;
     }
+
     public void EliminarPrimero() {
         if (this.length > 1) {
             this.head.GetNext().SetPrev(this.head.GetPrev());
             this.head.GetPrev().SetNext(this.head.GetNext());
             this.head = this.head.GetNext();
-            this.length -=1;
-            
+            this.length -= 1;
+
         } else if (this.length == 1) {
             this.head = null;
-            this.length -=1 ;
+            this.length -= 1;
         }
     }
-    public void EliminarUltimo(){
-        if(this.length >1){
+
+    public void EliminarUltimo() {
+        if (this.length > 1) {
             NodoCir<T> iterador = this.head;
-            while(iterador.GetNext() != head){
+            while (iterador.GetNext() != head) {
                 iterador = iterador.GetNext();
             }
             iterador.GetNext().SetPrev(iterador.GetPrev());
             iterador.GetPrev().SetNext(iterador.GetNext());
-            this.length -=1;
-        }else if(this.length ==1 ){
+            this.length -= 1;
+        } else if (this.length == 1) {
             this.head = null;
-            this.length -=1;
+            this.length -= 1;
         }
     }
+
     /**
-     * 
-     * funcion print
-     * recorre la lista e imprime el dato
+     *
+     * funcion print recorre la lista e imprime el dato
      */
-    public void Print() {
+    public void Imprimir() {
         NodoCir<T> temp = head;
         System.out.println("contenido de la lista");
         while (temp.GetNext() != head) {
@@ -149,5 +157,32 @@ public class ListaCir<T extends Comparable<T>> {
             temp = temp.GetNext();
         }
         System.out.println("[" + temp.GetDato() + "]");
+    }
+     public boolean Existe(T buscado) {
+        NodoCir<T> actual = this.head;
+        while (actual.GetNext() != this.head) {
+            if (actual.GetDato().compareTo(buscado) == 0) {
+                System.out.println("true");
+                return true;
+            } else {
+                actual = actual.GetNext();
+            }
+        }
+        System.out.println("false");
+        return false;        
+    }
+     public T Iterador(int i) {
+        if (i > length) {
+            return null;
+        } else {
+            int conteo = 0;
+            NodoCir<T> actual = this.head;
+            while (conteo < i) {
+                actual = actual.GetNext();
+                conteo++;
+            }
+            System.out.println(actual.GetDato());
+            return actual.GetDato();
+        }
     }
 }

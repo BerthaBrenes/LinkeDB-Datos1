@@ -76,8 +76,8 @@ public class Metadata implements Comparable<Metadata> {
         JSONObject obj = new JSONObject();
         obj.put("nombre", carpeta);
         JSONArray listjson = new JSONArray();
-        for (int i = 0; i < listaJson.get_Length(); i++) {
-            listjson.add(listaJson.get(i));
+        for (int i = 0; i < listaJson.Largo(); i++) {
+            listjson.add(listaJson.Iterador(i));
         }
         obj.put("DocumentosJson", listjson);
         try {
@@ -98,7 +98,7 @@ public class Metadata implements Comparable<Metadata> {
      * @param json
      */
     public void AgregarJson(String json) {
-        listaJson.Add(json);
+        listaJson.Insertar(json);
         JSONObject obj = new JSONObject();
         obj.put("nombre", json);
         try {

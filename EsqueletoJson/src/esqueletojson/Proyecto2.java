@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package esqueletojson;
+import Logica.Lista;
 import Logica.ListaCir;
 import Logica.ListaDo;
 import java.util.Scanner;
@@ -46,7 +47,7 @@ public class Proyecto2 {
         Metadata metadata = new Metadata(documento);
         metadata.EliminarJson("json1");*/
         
-        ListaDo<Integer> lista = new ListaDo<Integer>();
+        ListaCir<Integer> lista = new ListaCir<Integer>();
         int opcion =0, el,eli;
         do {
             try{
@@ -54,14 +55,14 @@ public class Proyecto2 {
                 switch(opcion){
                     case 1:   
                     el = Integer.parseInt(JOptionPane.showInputDialog(null,"Ingresar el Elemento:","Insertando al inicio",3));
-                    lista.Add(el);
+                    lista.Insertar(el);
                     break;
                     case 2:
-                        lista.Print();
+                        lista.Imprimir();
                         break;
                     case 3:
                         eli = Integer.parseInt(JOptionPane.showInputDialog(null,"Ingresar elemento a buscar","Eliminar Dato",3));
-                        lista.Delete(eli);
+                        lista.Existe(eli);
                         break;
                     case 4 :
                         break;

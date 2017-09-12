@@ -10,7 +10,7 @@ package Logica;
  * @author berta
  * @param <T> generalizacion de forma de cambiar el tipo de lista donde se
  */
-public class ListaDo<T extends Comparable<T>> {
+public class ListaDo<T extends Comparable<T>> implements Listas<T>{
 
     protected NodoCir<T> head;
     protected NodoCir<T> tail;
@@ -28,7 +28,7 @@ public class ListaDo<T extends Comparable<T>> {
      * @param i
      * @return
      */
-    public T get(int i) {
+    public T Iterador(int i) {
         if (i > length) {
             return null;
         } else {
@@ -47,7 +47,7 @@ public class ListaDo<T extends Comparable<T>> {
      *
      * @return
      */
-    public int Get_Length() {
+    public int Largo() {
         return length;
     }
 
@@ -56,13 +56,14 @@ public class ListaDo<T extends Comparable<T>> {
      *
      * @param n
      */
-    public void Add(T n) {
+    public void Insertar(T n) {
         NodoCir<T> nuevo = new NodoCir<T>(n);
         if (this.length == 0) {//si la lista es vacia
             this.head = nuevo;
             this.tail = head;
             this.length += 1;
         } else {// si la lista contiene elementos
+            nuevo.SetPrev(this.tail);
             this.tail.SetNext(nuevo);
             this.tail = this.tail.GetNext();
             this.length += 1;
@@ -72,7 +73,7 @@ public class ListaDo<T extends Comparable<T>> {
     /**
      * funcion print recorre la lista e imprime el dato
      */
-    public void Print() {
+    public void Imprimir() {
         NodoCir<T> temp = head;
         System.out.println("contenido de la lista");
         while (temp != null) {
@@ -84,30 +85,27 @@ public class ListaDo<T extends Comparable<T>> {
     /**
      * Funcion Delete Borra el ultimo elemento de la lista
      */
-    public NodoCir<T> Delete(T buscado) {
+    public void Eliminar(T buscado) {
         NodoCir<T> actual = this.head;
         if (this.head.GetDato().compareTo(buscado) == 0) {
             EliminarPrimero();
             System.out.println("hey soy el primero");
+        } else if (this.tail.GetDato().compareTo(buscado) == 0) {
+            EliminarUltim();
         } else {
             while (actual.GetNext() != null) {
                 if (actual.GetDato().compareTo(buscado) == 0) {
                     System.out.println("entre aca");
-                    actual.GetPrev().SetNext(actual.GetNext());
                     actual.GetNext().SetPrev(actual.GetPrev());
-                    
-                    return null;
+                    actual.GetPrev().SetNext(actual.GetNext());
+                    this.length -= 1;
+                    break;
                 } else {
                     actual = actual.GetNext();
                 }
             }
-            if (actual.GetDato().compareTo(buscado) == 0) {
-                EliminarUltim();
-            }
-            
 
         }
-        return null;
     }
 
     public void EliminarPrimero() {
@@ -176,4 +174,7 @@ public class ListaDo<T extends Comparable<T>> {
         }
         return false;
     }
+
+    
+    
 }
