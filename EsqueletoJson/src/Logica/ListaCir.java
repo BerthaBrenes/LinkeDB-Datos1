@@ -27,8 +27,9 @@ public class ListaCir<T extends Comparable<T>> implements Listas<T>{
      *
      * @param n
      */
+    @Override
     public void Insertar(T n) {
-        NodoCir<T> nuevo = new NodoCir<T>(n);
+        NodoCir<T> nuevo = new NodoCir<>(n);
         if (length == 0) {//si la lista es vacia
             this.head = nuevo;
             nuevo.SetNext(head);
@@ -52,6 +53,7 @@ public class ListaCir<T extends Comparable<T>> implements Listas<T>{
      *
      * @return
      */
+    @Override
     public int Largo() {
         return this.length;
     }
@@ -88,8 +90,8 @@ public class ListaCir<T extends Comparable<T>> implements Listas<T>{
      * Esta funcion borra el elemento(buscado que yo le indique)
      *
      * @param buscado
-     * @return
      */
+    @Override
     public void Eliminar(T buscado) {
         NodoCir<T> actual = this.head;
         if (this.head.GetDato().compareTo(buscado) == 0) {
@@ -149,6 +151,7 @@ public class ListaCir<T extends Comparable<T>> implements Listas<T>{
      *
      * funcion print recorre la lista e imprime el dato
      */
+    @Override
     public void Imprimir() {
         NodoCir<T> temp = head;
         System.out.println("contenido de la lista");
@@ -158,6 +161,7 @@ public class ListaCir<T extends Comparable<T>> implements Listas<T>{
         }
         System.out.println("[" + temp.GetDato() + "]");
     }
+    @Override
      public boolean Existe(T buscado) {
         NodoCir<T> actual = this.head;
         while (actual.GetNext() != this.head) {
@@ -171,6 +175,7 @@ public class ListaCir<T extends Comparable<T>> implements Listas<T>{
         System.out.println("false");
         return false;        
     }
+    @Override
      public T Iterador(int i) {
         if (i > length) {
             return null;

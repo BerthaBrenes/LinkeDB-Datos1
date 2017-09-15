@@ -5,7 +5,7 @@
  */
 package esqueletojson;
 
-import Logica.Lista;
+import Logica.ListaCir;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -23,7 +23,8 @@ import org.json.simple.parser.ParseException;
 public class Metadata implements Comparable<Metadata> {
 
     private String carpeta;
-    private Lista<String> listaJson;
+    private ListaCir<String> listaJson;
+    private Documento json;
 
     /**
      * Constructor de Metadata donde lo que voy a hacer es crear una lista de
@@ -33,7 +34,9 @@ public class Metadata implements Comparable<Metadata> {
      */
     public Metadata(String carpeta) {
         this.carpeta = carpeta;
-        listaJson = new Lista();
+        listaJson = new ListaCir();
+        json = new Documento(carpeta);
+       
 
     }
 
@@ -52,7 +55,6 @@ public class Metadata implements Comparable<Metadata> {
                 System.err.print("El archivo no se pudo abrir");
             }
         } else {
-
             JSONObject obj = new JSONObject();
             JSONArray list = new JSONArray();
 
@@ -94,7 +96,8 @@ public class Metadata implements Comparable<Metadata> {
         }
 
     }
-    public void EliminarPrimaria(String nombre) throws IOException{
+
+    public void EliminarPrimaria(String nombre) throws IOException {
         JSONParser parser = new JSONParser();
         FileReader fr = null;
         try {
@@ -142,11 +145,10 @@ public class Metadata implements Comparable<Metadata> {
             Iterator<String> iterator = courseArray.iterator();
             while (iterator.hasNext()) {
                 System.out.println("Json existentes: " + iterator.next());
+                listaJson.Insertar(iterator.next());
             }
-        } catch (ParseException ex) {
-            ex.printStackTrace();
-        } catch (IOException ex) {
-            ex.printStackTrace();
+            
+        } catch (ParseException | IOException ex) {
         }
 
     }
@@ -154,6 +156,8 @@ public class Metadata implements Comparable<Metadata> {
     /**
      * Se encarga de guardar cualquier json creado en la carpeta en un nuevo
      * json
+     *
+     * @param json
      */
     public void GuardarJson(String json) {
         File directorio = new File("data/" + carpeta + "/" + json + ".json");
@@ -172,8 +176,6 @@ public class Metadata implements Comparable<Metadata> {
                 file.write(obj.toString());
                 file.flush();
             } catch (IOException e) {
-                e.printStackTrace();
-
             }
         }
     }
@@ -186,41 +188,18 @@ public class Metadata implements Comparable<Metadata> {
      */
     public void AgregarJson(String json) {
         listaJson.Insertar(json);
-        JSONObject obj = new JSONObject();
-        obj.put("nombre", json);
-        try {
-            FileWriter file = new FileWriter("data/" + carpeta + "/" + json + ".json");
-            file.write(obj.toString());
-            file.flush();
-            //Nodo<String> gato = listaCarpeta.Buscar(carpeta);
-        } catch (IOException e) {
-            e.printStackTrace();
-
-        }
+        this.json.AgregarJson(json);
 
     }
 
     public void BuscarJson(String json) {
-        File directorio = new File("data/" + carpeta + "/" + json + ".json");
         System.out.println(listaJson.Buscar(json));
-        if (directorio.exists()) {
-            System.out.println("existe");
-        } else {
-            System.out.println("no existe");
-        }
+        this.json.BuscarJson(json);
     }
 
     public void EliminarJson(String json) {
-        File directorio = new File("data/" + carpeta + "/" + json + ".json");
-        if (directorio.exists()) {
-            try {
-                directorio.deleteOnExit();
-            } catch (Exception e) {
-
-            }
-        } else {
-            System.out.println("no existe");
-        }
+        listaJson.Eliminar(json);
+        this.json.EliminarJson(json);
     }
 
     @Override

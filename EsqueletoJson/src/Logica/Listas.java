@@ -8,6 +8,7 @@ package Logica;
 /**
  *
  * @author berta
+ * @param <T>
  */
 public interface Listas<T> {
     public void Eliminar(T buscado);
