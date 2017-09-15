@@ -28,6 +28,7 @@ public class Lista<T extends Comparable<T>> implements Listas<T> {
      * @param i
      * @return
      */
+    @Override
     public T Iterador(int i) {
         if (i > length) {
             return null;
@@ -47,6 +48,7 @@ public class Lista<T extends Comparable<T>> implements Listas<T> {
      *
      * @return
      */
+    @Override
     public int Largo() {
         return length;
     }
@@ -56,8 +58,9 @@ public class Lista<T extends Comparable<T>> implements Listas<T> {
      *
      * @param n
      */
+    @Override
     public void Insertar(T n) {
-        Nodo<T> nuevo = new Nodo<T>(n);
+        Nodo<T> nuevo = new Nodo<>(n);
         if (length == 0) {//si la lista es vacia
             head = nuevo;
             tail = head;
@@ -72,6 +75,7 @@ public class Lista<T extends Comparable<T>> implements Listas<T> {
     /**
      * funcion print recorre la lista e imprime el dato
      */
+    @Override
     public void Imprimir() {
         Nodo<T> temp = head;
         System.out.println("contenido de la lista");
@@ -84,7 +88,7 @@ public class Lista<T extends Comparable<T>> implements Listas<T> {
     /**
      * Funcion Delete Borra el ultimo elemento de la lista
      */
-    public void EliminarDato() {
+    public void EliminarUltimo() {
         if (length > 1) {
             Nodo<T> temp = head;
             while (temp.getNext().getNext() != null) {
@@ -102,6 +106,7 @@ public class Lista<T extends Comparable<T>> implements Listas<T> {
         }
     }
 
+    @Override
     public void Eliminar(T buscado) {
         Nodo<T> temp = this.head;
         if (this.head.getDato().compareTo(buscado) == 0) {
@@ -112,7 +117,7 @@ public class Lista<T extends Comparable<T>> implements Listas<T> {
                 if (temp.getNext() == this.tail) {
                     System.out.println("primer if");
                     if (this.tail.getDato().compareTo(buscado) == 0) {
-                        EliminarDato();
+                        EliminarUltimo();
                         break;
                     } else {
                         temp = temp.getNext();
@@ -157,6 +162,7 @@ public class Lista<T extends Comparable<T>> implements Listas<T> {
      * @param buscado
      * @return
      */
+    @Override
     public boolean Existe(T buscado) {
         Nodo<T> actual = this.head;
         while (actual != null) {

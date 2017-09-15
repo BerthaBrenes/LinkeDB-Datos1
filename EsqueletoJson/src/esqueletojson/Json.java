@@ -16,7 +16,7 @@ import org.json.simple.JSONObject;
  *
  * @author berta
  */
-public class Documento {
+public class Json {
 
 
     private Atributo atributos;
@@ -24,7 +24,7 @@ public class Documento {
     private Lista<Atributo> listaAtributos;
     
 
-    public Documento(String Carpet) {
+    public Json(String Carpet) {
         this.carpeta = Carpet;
         atributos = new Atributo(carpeta);
         

@@ -11,6 +11,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Iterator;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -23,13 +25,11 @@ import org.json.simple.parser.ParseException;
 public final class JsonStore {
 
     private final ListaDo<String> listaCarpeta;
-     private ListaCir<String> listaJson;
-    private Documento json;
-
-    private static JsonStore conteo = null;
+    private Json json;
+    private Documentos documento;
     private final Metadata metadataPrincipal;
 
-    public JsonStore() throws IOException, ParseException {
+    public JsonStore()  {
         listaCarpeta = new ListaDo();
         metadataPrincipal = new Metadata();
         metadataPrincipal.MetadaPrimaria();
@@ -45,21 +45,20 @@ public final class JsonStore {
      * @throws java.io.IOException
      * @throws org.json.simple.parser.ParseException
      */
-    public static JsonStore GetInstance() throws IOException, ParseException {
-        if (conteo == null) {
-            conteo = new JsonStore();
-        }
-        return conteo;
-    }
+    
 
-    public String CargarPrimaria() throws  ParseException, IOException {
+    public String CargarPrimaria()  {
         JSONParser parser = new JSONParser();
         FileReader fr = null;
         try {
             fr = new FileReader("data/metadata.json");
         } catch (Exception e) {
-            File f = new File("data/metadata.json");
-            f.createNewFile();
+            try {
+                File f = new File("data/metadata.json");
+                f.createNewFile();
+            } catch (IOException ex) {
+                Logger.getLogger(JsonStore.class.getName()).log(Level.SEVERE, null, ex);
+            }
 
         }
         try {
@@ -74,7 +73,9 @@ public final class JsonStore {
         listaCarpeta.Imprimir();
         
         } catch (IOException e) {
-            }
+            } catch (ParseException ex) {
+            Logger.getLogger(JsonStore.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return null;
     }
 
@@ -86,12 +87,12 @@ public final class JsonStore {
      */
     public void nuevoNodo(String carpeta) {
         File directorio = new File("data/" + carpeta);
+        Metadata metadata = new Metadata(carpeta);
         try {
             if (directorio.exists()) {
                 //TODO verificar si no han borrado el archivo metadata
-                Metadata metadata = new Metadata(carpeta);
                 metadata.CargoInfo();
-
+                
                 if (listaCarpeta.Existe(carpeta)) {
                     System.out.print(listaCarpeta.Buscar(carpeta));
                 } else {
@@ -103,7 +104,8 @@ public final class JsonStore {
                 directorio.mkdir();
                 listaCarpeta.Insertar(carpeta);
                 listaCarpeta.Imprimir();
-                Metadata metadata = new Metadata(carpeta);
+                metadata.InsertarPrimaria(carpeta);
+                metadata.CrearSecundarias();
 
             }
 
@@ -122,7 +124,7 @@ public final class JsonStore {
     public void Buscar(String carpeta) {
         File directorio = new File("data/" + carpeta);
         System.out.print(listaCarpeta.Buscar(carpeta));
-        listaCarpeta.Buscar(carpeta);
+        //listaCarpeta.Buscar(carpeta);
         if (directorio.exists()) {
             Metadata metadata = new Metadata(carpeta);
             metadata.CargoInfo();

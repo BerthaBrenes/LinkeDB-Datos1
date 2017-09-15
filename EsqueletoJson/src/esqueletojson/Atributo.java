@@ -5,7 +5,7 @@
  */
 package esqueletojson;
 
-import Logica.Lista;
+
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -32,12 +32,13 @@ public final class Atributo implements Comparable<Atributo> {
     private String carpeta;
     private String json;
 
-    public Atributo(String document, String nombr, String valo, Tipo tip, Llave llav, boolean requerid) {
+    public Atributo(String carpet,String document, String nombr, String valo, Tipo tip, Llave llav, boolean requerid) {
         setLlave(llav);
         setNombre(nombr);
         setRequerido(requerid);
         setTipo(tip);
         setValor(valo);
+        this.carpeta = carpet;
         this.json = document;
 
     }
@@ -51,7 +52,7 @@ public final class Atributo implements Comparable<Atributo> {
         JSONParser parser = new JSONParser();
         FileReader fr = null;
         try {
-            fr = new FileReader("data/" + carpeta + "/metadata.json");
+            fr = new FileReader("data/" + carpeta +"/"+json+".json");
         } catch (Exception e) {
             System.err.print("El archivo no se pudo abrir");
         }
@@ -77,12 +78,13 @@ public final class Atributo implements Comparable<Atributo> {
         JSONParser parser = new JSONParser();
         FileReader fr = null;
         try {
-            fr = new FileReader("data/metadata.json");
+            fr = new FileReader("data/"+carpeta+"metadata.json");
         } catch (Exception e) {
             try {
-                File f = new File("data/metadata.json");
+                File f = new File("data/"+carpeta+"metadata.json");
                 f.createNewFile();
             } catch (IOException ex) {
+                System.out.print("no se abrio");
                 Logger.getLogger(Atributo.class.getName()).log(Level.SEVERE, null, ex);
             }
 
@@ -99,7 +101,7 @@ public final class Atributo implements Comparable<Atributo> {
             atributosObjeto.put("Valor", getValor());
             atributosArray.add(atributosObjeto);
             atributObjeto.put("Atributos", atributosArray);
-            try (FileWriter file = new FileWriter("data/" + carpeta + json + "metadata.json")) {
+            try (FileWriter file = new FileWriter("data/"+carpeta+"metadata.json")) {
                 file.write(obj.toString());
                 file.flush();
                 System.out.print(atributObjeto);

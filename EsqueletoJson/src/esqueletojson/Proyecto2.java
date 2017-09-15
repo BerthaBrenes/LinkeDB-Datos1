@@ -31,12 +31,21 @@ public class Proyecto2 {
     public static int getP(){
         return valorP;
     }
-    
+   static Tipo entero;
+   static Llave primaria;
+   
     public static void main(String[] args) throws ParseException, IOException {
-        Atributo atr = new Atributo("cuarto"."jds.json","mio","tengo sue;o","entero","primaria","43");
-        Metadata hn = new Metadata("cuarto");
-        hn.CargoInfo();
-        atr.ImprimirAtributo();
+
+     String carpeta = "isacc";
+     JsonStore basico = new JsonStore();
+     basico.nuevoNodo(carpeta);
+     //basico.Buscar(carpeta);
+    
+     //Documentos doc = new Documentos(carpeta);
+     //doc.CargarLista();
+     //doc.AgregarJson("json1");
+     
+        //atr.ImprimirAtributo();
         
         
         /**
