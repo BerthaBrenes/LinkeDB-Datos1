@@ -25,7 +25,6 @@ import org.json.simple.parser.ParseException;
 public class Metadata implements Comparable<Metadata> {
 
     private String carpeta;
-    private ListaCir<String> listaJson;
     private Json json;
 
     /**
@@ -36,7 +35,6 @@ public class Metadata implements Comparable<Metadata> {
      */
     public Metadata(String carpeta) {
         this.carpeta = carpeta;
-        listaJson = new ListaCir();
         json = new Json(carpeta);
        
 
@@ -187,7 +185,6 @@ public class Metadata implements Comparable<Metadata> {
             Iterator<String> iterator = courseArray.iterator();
             while (iterator.hasNext()) {
                 System.out.println("Json existentes: " + iterator.next());
-                listaJson.Insertar(iterator.next());
             }
             
         } catch (ParseException | IOException ex) {
@@ -201,48 +198,10 @@ public class Metadata implements Comparable<Metadata> {
      *
      * @param json
      */
-    public void GuardarJson(String json) {
-        File directorio = new File("data/" + carpeta + "/" + json + ".json");
-        if (directorio.exists()) {
-            System.out.println("existe");
+    
 
-            JSONObject obj = new JSONObject();
-            obj.put("nombre", carpeta);
-            JSONArray listjson = new JSONArray();
-            for (int i = 0; i < listaJson.Largo(); i++) {
-                listjson.add(listaJson.Iterador(i));
-            }
-            obj.put("DocumentosJson", listjson);
-            try {
-                FileWriter file = new FileWriter("data/" + carpeta + "/metadata.json");
-                file.write(obj.toString());
-                file.flush();
-            } catch (IOException e) {
-            }
-        }
-    }
-
-    /**
-     * Agregar Json agrega json en la carpeta donde se encuentre la metadata y
-     * ademas de eso lo almacena en la metadata
-     *
-     * @param json
-     */
-    public void AgregarJson(String json) {
-        listaJson.Insertar(json);
-        this.json.AgregarJson(json);
-
-    }
-
-    public void BuscarJson(String json) {
-        System.out.println(listaJson.Buscar(json));
-        this.json.BuscarJson(json);
-    }
-
-    public void EliminarJson(String json) {
-        listaJson.Eliminar(json);
-        this.json.EliminarJson(json);
-    }
+   
+   
 
     @Override
     public int compareTo(Metadata o) {

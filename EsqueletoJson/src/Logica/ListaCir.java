@@ -76,7 +76,7 @@ public class ListaCir<T extends Comparable<T>> implements Listas<T>{
                 }
             }
             if (actual.GetDato().compareTo(buscado) == 0) {
-
+                System.out.print(actual);
                 return actual;
             }
             return null;

@@ -38,8 +38,9 @@ public class Json {
      * @param json
      */
     public void AgregarJson(String json) {
-        
+        JSONArray listatributos = new JSONArray();
         JSONObject obj = new JSONObject();
+        obj.put("Atributos", listatributos);
         obj.put("nombre", json);
         try {
             FileWriter file = new FileWriter("data/" + carpeta + "/" + json + ".json");

@@ -23,34 +23,27 @@ public class Proyecto2 {
     /**
      */
     
-    public static int valorP;
-    public static void setP(int dato){
-        valorP = dato;
-    }
     
-    public static int getP(){
-        return valorP;
-    }
    static Tipo entero;
    static Llave primaria;
    
     public static void main(String[] args) throws ParseException, IOException {
 
-     String carpeta = "isacc";
+     String carpeta = "pablo";
      JsonStore basico = new JsonStore();
      basico.nuevoNodo(carpeta);
-     //basico.Buscar(carpeta);
-    
-     //Documentos doc = new Documentos(carpeta);
-     //doc.CargarLista();
-     //doc.AgregarJson("json1");
-     
-        //atr.ImprimirAtributo();
+     basico.Eliminar(carpeta);
+     Documentos doc = new Documentos(carpeta);
+     ListaCir<String> lista = new ListaCir<String>();
+     doc.CargarLista();
+     doc.AgregarJson("json1");
+     //atr.ImprimirAtributo();
+   
+  
         
-        
-        /**
+       /** 
        JsonStore hn = new JsonStore();
-        ListaCir<Integer> lista = new ListaCir<Integer>();
+        ListaCir<String> lista = new ListaCir<String>();
         int opcion = 0;
         do {
             
@@ -58,16 +51,16 @@ public class Proyecto2 {
                 opcion = Integer.parseInt(JOptionPane.showInputDialog(null,"1. Desea crear una carpeta nueva\n 2.Buscar un elemento\n 3.Buscar y eliminar dato\n 4. salir", "Menu de Opciones",3));
                 switch(opcion){
                     case 1:   
-                    String el = JOptionPane.showInputDialog(null,"agregar un json",3);
-                    hn.nuevoNodo(el);
+                    String el = JOptionPane.showInputDialog(null,"agregar elemento",3);
+                    lista.Insertar(el);
                     break;
                     case 2:
                         String elo = JOptionPane.showInputDialog(null,"buscar",3);
-                        hn.Buscar(elo);
+                        lista.Buscar(elo);
                         break;
                     case 3:
                         String eli = JOptionPane.showInputDialog(null,"Ingresar elemento a buscar","Eliminar Dato",3);
-                        hn.Eliminar(eli);
+                        lista.Imprimir();
                         break;
                     case 4 :
                         break;
@@ -79,5 +72,5 @@ public class Proyecto2 {
         */
         
     }
-    
+   
 }

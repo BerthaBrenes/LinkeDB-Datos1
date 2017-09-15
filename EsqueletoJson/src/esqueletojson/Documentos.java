@@ -23,18 +23,20 @@ import org.json.simple.parser.ParseException;
  * @author berta
  */
 public class Documentos {
+
     private final String carpeta;
     private ListaCir<String> listaJson;
     private final Json json;
-    
-    public Documentos(String Carpeta){
+
+    public Documentos(String Carpeta) {
         this.carpeta = Carpeta;
         this.json = new Json(carpeta);
     }
+
     public void AgregarJson(String nombrejson) {
-        listaJson.Insertar(nombrejson);
+        //listaJson.Insertar(nombrejson);
         this.json.AgregarJson(nombrejson);
-        //GuardarMetada(nombrejson);
+        GuardarMetada(nombrejson);
 
     }
 
@@ -47,14 +49,15 @@ public class Documentos {
         listaJson.Eliminar(nombrejson);
         this.json.EliminarJson(nombrejson);
     }
-    public void CargarLista(){
+
+    public void CargarLista() {
         JSONParser parser = new JSONParser();
         FileReader fr = null;
         try {
-            fr = new FileReader("data/"+carpeta+"/"+"metadata.json");
+            fr = new FileReader("data/" + carpeta + "/metadata.json");
         } catch (Exception e) {
             try {
-                File f = new File("data/"+carpeta+"/"+"metadata.json");
+                File f = new File("data/" + carpeta + "/metadata.json");
                 f.createNewFile();
             } catch (IOException ex) {
                 Logger.getLogger(Documentos.class.getName()).log(Level.SEVERE, null, ex);
@@ -62,30 +65,31 @@ public class Documentos {
 
         }
         try {
-        Object obj = parser.parse(fr);
-        JSONObject jsonObjeto = (JSONObject) obj;
-        JSONArray courseArray = (JSONArray) jsonObjeto.get("DocumentosJson");
-        Iterator<String> iterator = courseArray.iterator();
+            Object obj = parser.parse(fr);
+            JSONObject jsonObjeto = (JSONObject) obj;
+            JSONArray courseArray = (JSONArray) jsonObjeto.get("DocumentosJson");
+            Iterator<String> iterator = courseArray.iterator();
 
-        while (iterator.hasNext()) {
-             listaJson.Insertar(iterator.next());
-        }
-        listaJson.Imprimir();
-        
-        } catch (IOException e) {
-            } catch (ParseException ex) {
+            while (iterator.hasNext() ) {
+                System.out.println("Json existentes: " + iterator.next());
+                listaJson.Insertar(iterator.next());
+            }
+            //listaJson.Imprimir();
+
+        } catch (IOException | ParseException ex) {
             Logger.getLogger(Documentos.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-}
-    public void GuardarMetada(String nombrejson){
+
+    }
+
+    public void GuardarMetada(String nombrejson) {
         JSONParser parser = new JSONParser();
         FileReader fr = null;
         try {
-            fr = new FileReader("data/"+carpeta+"/"+"metadata.json");
+            fr = new FileReader("data/" + carpeta + "/" + "metadata.json");
         } catch (Exception e) {
             try {
-                File f = new File("data/"+carpeta+"/"+"metadata.json");
+                File f = new File("data/" + carpeta + "/" + "metadata.json");
                 f.createNewFile();
             } catch (IOException ex) {
                 Logger.getLogger(Documentos.class.getName()).log(Level.SEVERE, null, ex);
@@ -98,11 +102,9 @@ public class Documentos {
             JSONObject atributosObjeto = (JSONObject) obj;
             JSONArray jsonArray = (JSONArray) jsonObjeto.get("DocumentosJson");
             jsonArray.add(nombrejson);
-            JSONArray atributosArray = (JSONArray) jsonArray.get(jsonArray.indexOf(nombrejson));
-            
-            
-            jsonObjeto.put("Json", jsonArray);
-            try (FileWriter file = new FileWriter("data/"+carpeta+"/"+"metadata.json")) {
+            //JSONArray atributosArray = (JSONArray) jsonArray.get(jsonArray.indexOf(nombrejson));
+
+            try (FileWriter file = new FileWriter("data/" + carpeta + "/" + "metadata.json")) {
                 file.write(obj.toString());
                 file.flush();
             } catch (IOException e) {
@@ -113,4 +115,3 @@ public class Documentos {
         }
     }
 }
-
