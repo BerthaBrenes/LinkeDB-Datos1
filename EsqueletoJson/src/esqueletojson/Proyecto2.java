@@ -7,8 +7,10 @@ package esqueletojson;
 import Logica.Lista;
 import Logica.ListaCir;
 import Logica.ListaDo;
+import java.io.IOException;
 import java.util.Scanner;
 import javax.swing.JOptionPane;
+import org.json.simple.parser.ParseException;
 
 
 /**
@@ -29,7 +31,7 @@ public class Proyecto2 {
         return valorP;
     }
     
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ParseException, IOException {
         /**
         System.out.println("vamos a crear una carpeta");
         String documento = JOptionPane.showInputDialog("Cual es el nombre del documento que desea crear");
@@ -46,7 +48,11 @@ public class Proyecto2 {
         String documento = "segundo";
         Metadata metadata = new Metadata(documento);
         metadata.EliminarJson("json1");*/
-        
+        Metadata hn = new Metadata();
+        hn.MetadaPrimaria();
+        String orimero = "intento append";
+        hn.EliminarPrimaria(orimero);
+       /**
         ListaCir<Integer> lista = new ListaCir<Integer>();
         int opcion =0, el,eli;
         do {
@@ -62,7 +68,7 @@ public class Proyecto2 {
                         break;
                     case 3:
                         eli = Integer.parseInt(JOptionPane.showInputDialog(null,"Ingresar elemento a buscar","Eliminar Dato",3));
-                        lista.Existe(eli);
+                        hn.InsertarPrimaria(orimero);
                         break;
                     case 4 :
                         break;
@@ -71,7 +77,7 @@ public class Proyecto2 {
             }
             
         } while(opcion != 4);
-        /**
+        
         JOptionPane.showMessageDialog(null,"Bienvenidos a la bases de datos linkedb");
         // TODO code application logic here
         String documento = JOptionPane.showInputDialog("Cual es el nombre del documento que desea crear");

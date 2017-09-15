@@ -37,6 +37,89 @@ public class Metadata implements Comparable<Metadata> {
 
     }
 
+    public Metadata() {
+
+    }
+
+    public void MetadaPrimaria() {
+        File directorio = new File("data/" + "metadata.json");
+        JSONParser parser = new JSONParser();
+        FileReader fr = null;
+        if (directorio.exists()) {
+            try {
+                fr = new FileReader("data/metadata.json");
+            } catch (Exception e) {
+                System.err.print("El archivo no se pudo abrir");
+            }
+        } else {
+
+            JSONObject obj = new JSONObject();
+            JSONArray list = new JSONArray();
+
+            obj.put("Carpetas", list);
+
+            try (FileWriter file = new FileWriter("data/metadata.json")) {
+                file.write(obj.toString());
+                file.flush();
+            } catch (IOException e) {
+            }
+
+            System.out.println(obj);
+        }
+    }
+
+    public void InsertarPrimaria(String nombre) throws IOException {
+        JSONParser parser = new JSONParser();
+        FileReader fr = null;
+        try {
+            fr = new FileReader("data/metadata.json");
+        } catch (Exception e) {
+            File f = new File("data/metadata.json");
+            f.createNewFile();
+
+        }
+        try {
+            Object obj = parser.parse(fr);
+            JSONObject jsonObjeto = (JSONObject) obj;
+
+            JSONArray courseArray = (JSONArray) jsonObjeto.get("Carpetas");
+            courseArray.add(nombre);
+            jsonObjeto.put("Carpetas", courseArray);
+            try (FileWriter file = new FileWriter("data/metadata.json")) {
+                file.write(obj.toString());
+                file.flush();
+            } catch (IOException e) {
+            }
+        } catch (ParseException ex) {
+        }
+
+    }
+    public void EliminarPrimaria(String nombre) throws IOException{
+        JSONParser parser = new JSONParser();
+        FileReader fr = null;
+        try {
+            fr = new FileReader("data/metadata.json");
+        } catch (Exception e) {
+            File f = new File("data/metadata.json");
+            f.createNewFile();
+
+        }
+        try {
+            Object obj = parser.parse(fr);
+            JSONObject jsonObjeto = (JSONObject) obj;
+
+            JSONArray courseArray = (JSONArray) jsonObjeto.get("Carpetas");
+            courseArray.remove(nombre);
+            jsonObjeto.put("Carpetas", courseArray);
+            try (FileWriter file = new FileWriter("data/metadata.json")) {
+                file.write(obj.toString());
+                file.flush();
+            } catch (IOException e) {
+            }
+        } catch (ParseException ex) {
+        }
+    }
+
     /**
      * Este metodo carga toda la informacion que existe en la carpeta usando la
      * metadata
@@ -72,23 +155,27 @@ public class Metadata implements Comparable<Metadata> {
      * Se encarga de guardar cualquier json creado en la carpeta en un nuevo
      * json
      */
-    public void GuardarJson() {
-        JSONObject obj = new JSONObject();
-        obj.put("nombre", carpeta);
-        JSONArray listjson = new JSONArray();
-        for (int i = 0; i < listaJson.Largo(); i++) {
-            listjson.add(listaJson.Iterador(i));
-        }
-        obj.put("DocumentosJson", listjson);
-        try {
-            FileWriter file = new FileWriter("data/" + carpeta + "/metadata.json");
-            file.write(obj.toString());
-            file.flush();
-        } catch (IOException e) {
-            e.printStackTrace();
+    public void GuardarJson(String json) {
+        File directorio = new File("data/" + carpeta + "/" + json + ".json");
+        if (directorio.exists()) {
+            System.out.println("existe");
 
-        }
+            JSONObject obj = new JSONObject();
+            obj.put("nombre", carpeta);
+            JSONArray listjson = new JSONArray();
+            for (int i = 0; i < listaJson.Largo(); i++) {
+                listjson.add(listaJson.Iterador(i));
+            }
+            obj.put("DocumentosJson", listjson);
+            try {
+                FileWriter file = new FileWriter("data/" + carpeta + "/metadata.json");
+                file.write(obj.toString());
+                file.flush();
+            } catch (IOException e) {
+                e.printStackTrace();
 
+            }
+        }
     }
 
     /**
@@ -110,7 +197,7 @@ public class Metadata implements Comparable<Metadata> {
             e.printStackTrace();
 
         }
-        GuardarJson();
+
     }
 
     public void BuscarJson(String json) {
@@ -124,7 +211,7 @@ public class Metadata implements Comparable<Metadata> {
     }
 
     public void EliminarJson(String json) {
-        File directorio = new File("data/" + carpeta+"/"+json+".json");
+        File directorio = new File("data/" + carpeta + "/" + json + ".json");
         if (directorio.exists()) {
             try {
                 directorio.deleteOnExit();
@@ -135,8 +222,6 @@ public class Metadata implements Comparable<Metadata> {
             System.out.println("no existe");
         }
     }
-
-    
 
     @Override
     public int compareTo(Metadata o) {

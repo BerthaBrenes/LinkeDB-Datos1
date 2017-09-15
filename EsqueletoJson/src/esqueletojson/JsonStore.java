@@ -68,7 +68,6 @@ public class JsonStore {
                 listaCarpeta.Insertar(carpeta);
                 listaCarpeta.Imprimir();
                 Metadata metadata = new Metadata(carpeta);
-                metadata.GuardarJson();
                 listaMetadata.Insertar(metadata);
 
             }

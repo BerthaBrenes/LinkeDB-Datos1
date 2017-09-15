@@ -9,6 +9,12 @@ package Logica;
  *
  * @author berta
  */
-public interface Listas {
-    
+public interface Listas<T> {
+    public void Eliminar(T buscado);
+    public T Iterador(int i);
+    public int Largo();
+    public void Insertar(T n);
+    public void Imprimir();
+    public boolean Existe(T buscado);
 }
+
