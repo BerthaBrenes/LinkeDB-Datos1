@@ -98,8 +98,8 @@ public class Documentos {
             JSONObject atributosObjeto = (JSONObject) obj;
             JSONArray jsonArray = (JSONArray) jsonObjeto.get("DocumentosJson");
             jsonArray.add(nombrejson);
+            JSONArray atributosArray = (JSONArray) jsonArray.get(jsonArray.indexOf(nombrejson));
             
-            jsonArray.get(jsonArray.indexOf(nombrejson));
             
             jsonObjeto.put("Json", jsonArray);
             try (FileWriter file = new FileWriter("data/"+carpeta+"/"+"metadata.json")) {
