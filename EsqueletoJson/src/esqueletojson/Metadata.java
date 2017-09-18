@@ -136,7 +136,7 @@ public class Metadata implements Comparable<Metadata> {
     }
     public void CrearSecundarias(){
         String path = "data/" + carpeta + "/metadata.json";
-         File directorio = new File(path);
+        File directorio = new File(path);
         JSONParser parser = new JSONParser();
         FileReader fr = null;
         if (directorio.exists()) {
@@ -167,7 +167,7 @@ public class Metadata implements Comparable<Metadata> {
      * metadata
      *
      */
-    public void CargoInfo() {
+    public String CargoInfo() {
         JSONParser parser = new JSONParser();
         FileReader fr = null;
         try {
@@ -184,21 +184,15 @@ public class Metadata implements Comparable<Metadata> {
             JSONArray courseArray = (JSONArray) jsonObjeto.get("DocumentosJson");
             Iterator<String> iterator = courseArray.iterator();
             while (iterator.hasNext()) {
-                System.out.println("Json existentes: " + iterator.next());
+                System.out.println("Documentos existentes: " + iterator.next());
             }
-            
+            return (String) obj;
         } catch (ParseException | IOException ex) {
         }
-
+       return null; 
     }
 
-    /**
-     * Se encarga de guardar cualquier json creado en la carpeta en un nuevo
-     * json
-     *
-     * @param json
-     */
-    
+   
 
    
    

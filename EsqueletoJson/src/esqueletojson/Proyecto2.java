@@ -24,21 +24,20 @@ public class Proyecto2 {
      */
     
     
-   static Tipo entero;
-   static Llave primaria;
+   static Tipo entero = Tipo.cadena;
+   static Llave primaria = Llave.principal;
    
     public static void main(String[] args) throws ParseException, IOException {
 
-     String carpeta = "pablo";
+     String carpeta = "luis";
      JsonStore basico = new JsonStore();
      basico.nuevoNodo(carpeta);
-     basico.Eliminar(carpeta);
      Documentos doc = new Documentos(carpeta);
-     ListaCir<String> lista = new ListaCir<String>();
      doc.CargarLista();
      doc.AgregarJson("json1");
-     //atr.ImprimirAtributo();
-   
+    Json json = new Json(carpeta);
+    //json.CargarLista("json1");
+    json.AgregarAtributos(carpeta,"json1", "hjol", "2013", entero, primaria, true);
   
         
        /** 

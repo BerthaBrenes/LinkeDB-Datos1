@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="497.0" prefWidth="732.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="prueba.FXMLDocumentController">
+   <children>
+      <Label layoutX="249.0" layoutY="21.0" prefHeight="33.0" prefWidth="224.0" text="Bienvenidos a LinkedDB" textFill="#945252" wrapText="true" />
+      <TextField id="tfCarpeta" fx:id="tfCarpeta" layoutX="294.0" layoutY="97.0" />
+      <Button id="bt_commi" layoutX="518.0" layoutY="410.0" mnemonicParsing="false" onAction="#accionMostrar" text="Commit" />
+      <TextField id="tfDatos" fx:id="tfDatos" layoutX="237.0" layoutY="279.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="156.0" prefWidth="258.0" />
+      <Label layoutX="237.0" layoutY="257.0" text="Datos" />
+      <TreeView id="tv_visualizacion" fx:id="tv_visualizacion" layoutY="4.0" prefHeight="467.0" prefWidth="212.0" />
+      <ScrollBar layoutX="478.0" layoutY="279.0" orientation="VERTICAL" prefHeight="156.0" prefWidth="17.0" />
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="512.0" layoutY="238.0" pickOnBounds="true" preserveRatio="true" />
+      <Label layoutX="221.0" layoutY="99.0" prefHeight="21.0" prefWidth="109.0" text="Carpeta" textFill="#945252" wrapText="true" />
+      <Button id="bt_crear" layoutX="495.0" layoutY="97.0" mnemonicParsing="false" onAction="#NuevoTitem" text="Crear " />
+      <Label layoutX="219.0" layoutY="54.0" prefHeight="45.0" prefWidth="200.0" text="Crear Carpeta" textFill="#6f4343" />
+      <Button id="bt_documento" layoutX="563.0" layoutY="97.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Añadir Documentos" />
+      <Button id="bt-salir" layoutX="681.0" layoutY="9.0" mnemonicParsing="false" text="salir" />
+   </children>
+</AnchorPane>

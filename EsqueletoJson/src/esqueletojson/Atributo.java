@@ -32,20 +32,23 @@ public final class Atributo implements Comparable<Atributo> {
     private String carpeta;
     private String json;
 
-    public Atributo(String carpet,String document, String nombr, String valo, Tipo tip, Llave llav, boolean requerid) {
+    public Atributo(String carpet,String nombrejson, String nombr, String valo, Tipo tip, Llave llav, boolean requerid) {
         setLlave(llav);
         setNombre(nombr);
         setRequerido(requerid);
         setTipo(tip);
         setValor(valo);
         this.carpeta = carpet;
-        this.json = document;
+        
+        System.out.println(carpet +" "+ nombr);
+        GuardarAtributo();
+        //InsertarAtributo();
 
     }
 
     public Atributo(String carpet) {
         this.carpeta = carpet;
-
+       
     }
 
     public void ImprimirAtributo() {
@@ -73,35 +76,75 @@ public final class Atributo implements Comparable<Atributo> {
     public void EliminarAtributo() {
 
     }
-
+    public void GuardarAtributo(){
+         String path = "data/"+carpeta+"/"+json+".json";
+         JSONParser parser = new JSONParser();
+         FileReader fr = null;
+         try{
+             fr = new FileReader(path);
+         }catch(Exception e){
+            try{
+                File f = new File(path);
+                f.createNewFile();
+            } catch (IOException ex) {
+                 Logger.getLogger(Atributo.class.getName()).log(Level.SEVERE, null, ex);
+             }
+         }
+         try{
+            Object obj = parser.parse(fr);
+            JSONObject jsonObjeto = (JSONObject) obj;
+            JSONObject atributosObjeto = new JSONObject();
+            JSONArray atributosArray = (JSONArray) jsonObjeto.get("Atributos");
+            Iterator<String> iterator = atributosArray.iterator();
+            while(iterator.hasNext()){
+                iterator.next();
+            }
+            atributosObjeto.put("Nombre:", this.nombre);
+            atributosObjeto.put("Tipo",this.tipo);
+            atributosObjeto.put("Llave",this.llave);
+            atributosObjeto.put("Valor",this.valor);
+            atributosObjeto.put("Requerido",this.requerido);
+            atributosArray.add(atributosObjeto);
+            try (FileWriter file = new FileWriter(path)) {
+                file.write(obj.toString());
+                file.flush();
+            } catch (IOException e) {
+            }
+        } catch (ParseException ex) {
+        } catch (IOException ex) {
+            Logger.getLogger(Documentos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     public void InsertarAtributo() {
+        String path = "data/"+carpeta+"/metadata.json";
         JSONParser parser = new JSONParser();
         FileReader fr = null;
         try {
-            fr = new FileReader("data/"+carpeta+"metadata.json");
+            fr = new FileReader(path);
         } catch (Exception e) {
             try {
-                File f = new File("data/"+carpeta+"metadata.json");
+                File f = new File(path);
                 f.createNewFile();
             } catch (IOException ex) {
                 System.out.print("no se abrio");
                 Logger.getLogger(Atributo.class.getName()).log(Level.SEVERE, null, ex);
             }
-
         }
         try {
             Object obj = parser.parse(fr);
             JSONObject atributObjeto = (JSONObject) obj;
-            JSONArray atributosArray = (JSONArray) atributObjeto.get("Atributos");
-            JSONObject atributosObjeto = (JSONObject) obj;
+            JSONArray jsonArray = (JSONArray)atributObjeto.get("DocumentosJson") ;
+            JSONArray atributosArray = (JSONArray) jsonArray.get(jsonArray.indexOf(json));
+            JSONObject atributosObjeto = new JSONObject();
             atributosObjeto.put("Nombre", getNombre());
             atributosObjeto.put("Tipo", getTipo());
             atributosObjeto.put("Tipo Especial", getLlave());
             atributosObjeto.put("Requerimiento", isRequerido());
             atributosObjeto.put("Valor", getValor());
             atributosArray.add(atributosObjeto);
-            atributObjeto.put("Atributos", atributosArray);
-            try (FileWriter file = new FileWriter("data/"+carpeta+"metadata.json")) {
+            //atributObjeto.put("Atributos", atributosArray);
+            
+            try (FileWriter file = new FileWriter(path)) {
                 file.write(obj.toString());
                 file.flush();
                 System.out.print(atributObjeto);

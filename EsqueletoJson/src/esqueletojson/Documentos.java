@@ -25,19 +25,39 @@ import org.json.simple.parser.ParseException;
 public class Documentos {
 
     private final String carpeta;
-    private ListaCir<String> listaJson;
+    private final ListaCir<String> listaJson;
     private final Json json;
 
     public Documentos(String Carpeta) {
         this.carpeta = Carpeta;
         this.json = new Json(carpeta);
+        listaJson = new ListaCir();
     }
 
     public void AgregarJson(String nombrejson) {
-        //listaJson.Insertar(nombrejson);
-        this.json.AgregarJson(nombrejson);
-        GuardarMetada(nombrejson);
+        
+        File directorio = new File("data/" + carpeta + "/" + nombrejson + ".json");
+        JSONArray listatributos = new JSONArray();
+        JSONObject obj = new JSONObject();
+        if (directorio.exists()) {
+            System.out.println("existo");
+        }else{
+            System.out.println(" no existo");
+           //listaJson.Insertar(nombrejson);
+           
+           obj.put("Atributos", listatributos);
+            obj.put("nombre", nombrejson);
+            try {
+                FileWriter file = new FileWriter("data/" + carpeta + "/" + nombrejson + ".json");
+                file.write(obj.toString());
+                file.flush();
 
+            } catch (IOException e) {
+            }
+            GuardarMetada(nombrejson);
+        }
+        //this.json.AgregarJson(nombrejson);
+        
     }
 
     public void BuscarJson(String nombrejson) {
@@ -69,9 +89,8 @@ public class Documentos {
             JSONObject jsonObjeto = (JSONObject) obj;
             JSONArray courseArray = (JSONArray) jsonObjeto.get("DocumentosJson");
             Iterator<String> iterator = courseArray.iterator();
-
             while (iterator.hasNext() ) {
-                System.out.println("Json existentes: " + iterator.next());
+               
                 listaJson.Insertar(iterator.next());
             }
             //listaJson.Imprimir();
@@ -83,27 +102,37 @@ public class Documentos {
     }
 
     public void GuardarMetada(String nombrejson) {
+        String path = "data/" + carpeta + "/" + "metadata.json";
+        File directorio = new File(path);
         JSONParser parser = new JSONParser();
         FileReader fr = null;
+        
+            System.out.println("me meti aqui");
         try {
-            fr = new FileReader("data/" + carpeta + "/" + "metadata.json");
+            fr = new FileReader(path);
+            System.out.println("trati de leer");
         } catch (Exception e) {
             try {
                 File f = new File("data/" + carpeta + "/" + "metadata.json");
                 f.createNewFile();
+                System.out.println("creo metadata");
             } catch (IOException ex) {
                 Logger.getLogger(Documentos.class.getName()).log(Level.SEVERE, null, ex);
             }
 
         }
-        try {
+        try { 
+            System.out.println("me meti aqui tratbati de escribrir");
             Object obj = parser.parse(fr);
             JSONObject jsonObjeto = (JSONObject) obj;
             JSONObject atributosObjeto = (JSONObject) obj;
             JSONArray jsonArray = (JSONArray) jsonObjeto.get("DocumentosJson");
+            Iterator<String> iterator = jsonArray.iterator();
+            while(iterator.hasNext()){
+                System.out.print(iterator.next());
+            }
+                
             jsonArray.add(nombrejson);
-            //JSONArray atributosArray = (JSONArray) jsonArray.get(jsonArray.indexOf(nombrejson));
-
             try (FileWriter file = new FileWriter("data/" + carpeta + "/" + "metadata.json")) {
                 file.write(obj.toString());
                 file.flush();

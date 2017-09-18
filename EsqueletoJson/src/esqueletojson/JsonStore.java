@@ -7,6 +7,7 @@ package esqueletojson;
 
 import Logica.ListaCir;
 import Logica.ListaDo;
+import Logica.NodoCir;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
@@ -108,13 +109,18 @@ public final class JsonStore {
                 metadata.CrearSecundarias();
 
             }
-
+  
         } catch (Exception e) {
 
         }
 
     }
-
+    public NodoCir<String> Retornar(String carpeta){
+        if(listaCarpeta.Existe(carpeta)){
+            return listaCarpeta.Buscar(carpeta);
+        }
+        return null;
+    }
     /**
      * Esta funcion busca que la carpeta con ese nombre exista en la carpeta
      * data
