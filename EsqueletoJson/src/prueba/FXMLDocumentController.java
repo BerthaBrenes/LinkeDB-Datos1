@@ -41,9 +41,11 @@ public class FXMLDocumentController implements Initializable {
     public void NuevoTitem(ActionEvent evento){
         String nom = tfCarpeta.getText();
         this.nomCarpeta = nom;
+        JsonStore.Inicializar();
+        JsonStore.nuevoNodo(nom);
         
-        TreeItem<Object> item = (TreeItem<Object>) tv_visualizacion.getSelectionModel().getSelectedItems();
-        item.getChildren().add(new TreeItem<>(tfCarpeta.getText()));
+       // TreeItem<Object> item = (TreeItem<Object>) tv_visualizacion.getSelectionModel().getSelectedItems();
+        //item.getChildren().add(new TreeItem<>(tfCarpeta.getText()));
         
         
     }

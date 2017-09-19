@@ -70,10 +70,6 @@ public final class JsonStore {
         return null;
     }
 
-    public  ListaDo<String> getListaCarpeta() {
-        return listaCarpeta;
-    }
-
     /**
      * nuevoNodo Consiste en un metodo que crea carpetas en DATA Cada carpeta es
      * un nodo en una lista doblementenlazada
@@ -163,6 +159,10 @@ public final class JsonStore {
         if (!file.delete()) {
             throw new IOException();
         }
+    }
+
+    public ListaDo<String> getListaCarpeta() {
+        return listaCarpeta;
     }
 
 }

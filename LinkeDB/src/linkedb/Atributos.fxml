@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="516.0" prefWidth="619.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Button layoutX="372.0" layoutY="211.0" mnemonicParsing="false" text="Agregar" />
+      <ChoiceBox id="choiceTipo" layoutX="164.0" layoutY="238.0" prefWidth="150.0" />
+      <Label layoutX="74.0" layoutY="120.0" prefHeight="15.0" prefWidth="68.0" text="Nombre" />
+      <Label layoutX="76.0" layoutY="163.0" prefHeight="15.0" prefWidth="48.0" text="Valor" />
+      <Label layoutX="74.0" layoutY="203.0" prefHeight="15.0" prefWidth="56.0" text="Llave " />
+      <Label layoutX="72.0" layoutY="243.0" prefHeight="15.0" prefWidth="39.0" text="Tipo" />
+      <ChoiceBox id="choiceLlave" layoutX="165.0" layoutY="198.0" prefWidth="150.0" />
+      <TextField id="tfNombre" layoutX="165.0" layoutY="115.0" />
+      <TextField id="tfValor" layoutX="164.0" layoutY="158.0" />
+      <Label layoutX="130.0" layoutY="26.0" prefHeight="32.0" prefWidth="117.0" text="Agregar Atributos" />
+      <Button layoutX="465.0" layoutY="211.0" mnemonicParsing="false" text="Cancelar" />
+      <GridPane layoutX="372.0" layoutY="82.0" prefHeight="137.0" prefWidth="200.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label prefHeight="15.0" prefWidth="64.0" text="Carpeta" />
+            <Label prefHeight="15.0" prefWidth="77.0" text="Documento" GridPane.rowIndex="1" />
+            <Label prefHeight="15.0" prefWidth="70.0" text="Nombre" GridPane.rowIndex="2" />
+            <Label text="Valor" GridPane.rowIndex="3" />
+            <Label text="Tipo" GridPane.rowIndex="4" />
+            <Label text="Llave" GridPane.rowIndex="5" />
+            <Label id="labelNomCarpeta" prefHeight="15.0" prefWidth="74.0" GridPane.columnIndex="1" />
+            <Label id="labelNomDocumento" prefHeight="15.0" prefWidth="82.0" text=" " GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label id="labelValor" prefHeight="15.0" prefWidth="82.0" text=" " GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Label id="labelLlave" prefHeight="15.0" prefWidth="82.0" text=" " GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <Label id="labelTipo" prefHeight="15.0" prefWidth="82.0" text=" " GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <Label id="labelNom" prefHeight="15.0" prefWidth="82.0" text=" " GridPane.columnIndex="1" GridPane.rowIndex="2" />
+         </children>
+      </GridPane>
+      <Label layoutX="70.0" layoutY="80.0" prefHeight="15.0" prefWidth="82.0" text="Carpeta" />
+      <ChoiceBox id="choiceCarpeta" layoutX="162.0" layoutY="75.0" prefWidth="150.0" />
+      <TableView layoutX="42.0" layoutY="286.0" prefHeight="200.0" prefWidth="200.0">
+        <columns>
+          <TableColumn prefWidth="75.0" text="Nombre" />
+          <TableColumn prefWidth="101.0" text="Valor" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>
