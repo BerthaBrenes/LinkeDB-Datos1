@@ -5,7 +5,7 @@
  */
 package esqueletojson;
 
-import Logica.ListaCir;
+
 import Logica.ListaDo;
 import Logica.NodoCir;
 import java.io.File;

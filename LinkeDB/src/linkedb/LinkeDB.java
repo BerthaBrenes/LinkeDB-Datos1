@@ -5,22 +5,19 @@
  */
 package linkedb;
 
-import java.io.IOException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import sun.applet.Main;
+
 
 /**
  *
  * @author berta
  */
 public class LinkeDB extends Application {
-    private Stage primaryStage;
-    private BorderPane mainLayout;
+   
     
     
     @Override
