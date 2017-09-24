@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="EsqueletoJson/JavaFXApplication7/src"/>
+	<classpathentry kind="src" path="EsqueletoJson/src"/>
+	<classpathentry kind="src" path="LinkeDB/src"/>
+	<classpathentry kind="lib" path="EsqueletoJson/dist/EsqueletoJson.jar"/>
+	<classpathentry kind="lib" path="EsqueletoJson/dist/lib/java-json.jar"/>
+	<classpathentry kind="lib" path="EsqueletoJson/dist/lib/json-simple-1.1.1.jar"/>
+	<classpathentry kind="lib" path="EsqueletoJson/JavaFXApplication7/dist/JavaFXApplication7.jar"/>
+	<classpathentry kind="lib" path="EsqueletoJson/JavaFXApplication7/dist/run2146137130/JavaFXApplication7.jar"/>
+	<classpathentry kind="lib" path="EsqueletoJson/prueba/dist/prueba.jar"/>
+	<classpathentry kind="lib" path="LinkeDB/dist/lib/java-json.jar"/>
+	<classpathentry kind="lib" path="LinkeDB/dist/lib/json-simple-1.1.1.jar"/>
+	<classpathentry kind="lib" path="LinkeDB/dist/LinkeDB.jar"/>
+	<classpathentry kind="output" path="EsqueletoJson/JavaFXApplication7/build/classes"/>
+</classpath>

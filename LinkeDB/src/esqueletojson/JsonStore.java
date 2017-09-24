@@ -29,7 +29,9 @@ public final class JsonStore {
     private static Json json;
     private static Documentos documento;
     private static Metadata metadataPrincipal;
-
+    /**
+     * Metodo que iniciliza la metadata y las listas de los store
+     */
     public static void Inicializar() {
         listaCarpeta = new ListaDo();
         metadataPrincipal = new Metadata();
@@ -37,7 +39,10 @@ public final class JsonStore {
         CargarPrimaria();
 
     }
-
+    /**
+     * Carga la informacion existentes en la metadata en las listas
+     * @return 
+     */
     public static String CargarPrimaria() {
         JSONParser parser = new JSONParser();
         FileReader fr = null;
@@ -105,7 +110,11 @@ public final class JsonStore {
         }
 
     }
-
+/**
+ * Esta lista es para saber si existe una carpeta en la lista
+ * @param carpeta
+ * @return un nodo de la listas
+ */
     public static NodoCir<String> Retornar(String carpeta) {
         if (listaCarpeta.Existe(carpeta)) {
             return listaCarpeta.Buscar(carpeta);
@@ -130,7 +139,10 @@ public final class JsonStore {
             System.out.println("no existe");
         }
     }
-
+/**
+ * Eliminar una carpeta especifica 
+ * @param carpeta 
+ */
     public void Eliminar(String carpeta) {
         File directorio = new File("data/" + carpeta);
         listaCarpeta.Eliminar(carpeta);

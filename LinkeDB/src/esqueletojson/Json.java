@@ -85,7 +85,10 @@ public class Json {
             listaAtributos.Imprimir();
         }
     }
-
+    /**
+     * Carga la informacion que tiene la metadata en las listas
+     * @param nombrejson 
+     */
     public void CargarLista(String nombrejson) {
         String path = "data/" + carpeta + "/"+ nombrejson+".json";
         JSONParser parser = new JSONParser();

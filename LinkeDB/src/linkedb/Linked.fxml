@@ -10,7 +10,7 @@
    <children>
       <HBox layoutX="228.0" layoutY="210.0" />
       <TreeView id="tv_visual" fx:id="tv_visual" onContextMenuRequested="#mouseClick" onMouseClicked="#mouseClick" prefHeight="398.0" prefWidth="200.0" />
-      <TextField id="tf_carpeta" layoutX="350.0" layoutY="84.0" prefHeight="25.0" prefWidth="171.0" />
+      <TextField id="tfCarpeta" fx:id="tfCarpeta" layoutX="350.0" layoutY="84.0" prefHeight="25.0" prefWidth="171.0" />
       <Button layoutX="350.0" layoutY="305.0" mnemonicParsing="false" onAction="#Mostrar" text="Commit" />
       <Button id="bt_crear" layoutX="549.0" layoutY="84.0" mnemonicParsing="false" onAction="#NuevoTitem" text="Crear" />
       <Button id="bt_Documento" layoutX="606.0" layoutY="154.0" mnemonicParsing="false" onAction="#DocumentoBt" text="Abrir Documento" />
@@ -18,7 +18,7 @@
       <Label layoutX="356.0" layoutY="30.0" text="Bienvenidos a LinkedDB" />
       <ListView id="listView" fx:id="listView" layoutX="582.0" layoutY="187.0" prefHeight="200.0" prefWidth="200.0" />
       <Label layoutX="213.0" layoutY="116.0" prefHeight="31.0" prefWidth="145.0" text="Nuevo Documento" />
-      <TextField id="tf_carpeta" layoutX="350.0" layoutY="119.0" prefHeight="25.0" prefWidth="171.0" />
+      <TextField id="tf_carpeta" fx:id="tfNombre" layoutX="350.0" layoutY="119.0" prefHeight="25.0" prefWidth="171.0" />
       <Button layoutX="536.0" layoutY="119.0" mnemonicParsing="false" onAction="#VentanaAtributos" text="Agregar Atributos" />
    </children>
 </AnchorPane>

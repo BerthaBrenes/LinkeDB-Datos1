@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyectolinkedfinal.Prueba2Controller">
+   <children>
+      <Button layoutX="59.0" layoutY="280.0" mnemonicParsing="false" onAction="#AtributosEnlista" prefHeight="25.0" prefWidth="72.0" text="Guardar" />
+      <TextField fx:id="tfNomAtributo" layoutX="145.0" layoutY="54.0" />
+      <TextField fx:id="tfValorAtributo" layoutX="145.0" layoutY="91.0" />
+      <Label layoutX="43.0" layoutY="59.0" text="Nombre" />
+      <Label layoutX="39.0" layoutY="96.0" text="Valor" />
+      <Label layoutX="39.0" layoutY="140.0" text="Tipo" />
+      <Label layoutX="39.0" layoutY="180.0" text="Llave" />
+      <Button layoutX="182.0" layoutY="280.0" mnemonicParsing="false" text="Cancelar" />
+      <TableView layoutX="343.0" layoutY="55.0" prefHeight="200.0" prefWidth="200.0">
+        <columns>
+          <TableColumn prefWidth="88.0" text="Nombre" />
+          <TableColumn prefWidth="86.0" text="Valor" />
+        </columns>
+      </TableView>
+      <Label layoutX="39.0" layoutY="217.0" text="Requerimiento" />
+      <ComboBox fx:id="cbTipo" layoutX="145.0" layoutY="135.0" prefWidth="150.0" />
+      <ComboBox fx:id="cbllave" layoutX="145.0" layoutY="175.0" prefWidth="150.0" />
+      <ComboBox fx:id="cbrequerido" layoutX="145.0" layoutY="212.0" prefWidth="150.0" />
+   </children>
+</AnchorPane>

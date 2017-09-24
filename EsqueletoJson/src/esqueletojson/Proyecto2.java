@@ -28,7 +28,10 @@ public class Proyecto2 {
    static Llave primaria = Llave.principal;
    
     public static void main(String[] args) throws ParseException, IOException {
-
+        System.out.println(System.getProperty("java.vendor"));
+        System.out.println(System.getProperty("java.vendor.url"));
+        System.out.println(System.getProperty("java.version"));
+/**
      String carpeta = "luis";
      JsonStore basico = new JsonStore();
      basico.nuevoNodo(carpeta);
@@ -39,7 +42,7 @@ public class Proyecto2 {
     //json.CargarLista("json1");
     json.AgregarAtributos(carpeta,"json1", "hjol", "2013", entero, primaria, true);
   
-        
+        **/
        /** 
        JsonStore hn = new JsonStore();
         ListaCir<String> lista = new ListaCir<String>();

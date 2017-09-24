@@ -42,7 +42,9 @@ public class Metadata implements Comparable<Metadata> {
     public Metadata() {
 
     }
-
+/**
+ * Crea la metadata primaria, almacena todas las carpetas existentes
+ */
     public void MetadaPrimaria() {
         File directorio = new File("data/" + "metadata.json");
         JSONParser parser = new JSONParser();
@@ -68,7 +70,10 @@ public class Metadata implements Comparable<Metadata> {
             System.out.println(obj);
         }
     }
-
+/**
+ * inserta una nueva store a la metadata
+ * @param nombre 
+ */
     public void InsertarPrimaria(String nombre)  {
         JSONParser parser = new JSONParser();
         FileReader fr = null;
@@ -101,7 +106,10 @@ public class Metadata implements Comparable<Metadata> {
         }
 
     }
-
+/**
+ * Elimina un store de la metadata
+ * @param nombre 
+ */
     public void EliminarPrimaria(String nombre) {
         JSONParser parser = new JSONParser();
         FileReader fr = null;
@@ -133,6 +141,9 @@ public class Metadata implements Comparable<Metadata> {
             Logger.getLogger(Metadata.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    /**
+     * Crear las metadatas secundarias por store
+     */
     public void CrearSecundarias(){
         String path = "data/" + carpeta + "/metadata.json";
         File directorio = new File(path);

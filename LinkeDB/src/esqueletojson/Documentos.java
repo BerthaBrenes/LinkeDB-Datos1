@@ -27,13 +27,19 @@ public class Documentos {
     private final String carpeta;
     private final ListaCir<String> listaJson;
     private final Json json;
-
+    /**
+     * Constructuctor de documentos que solicita una carpeta e inicializa las listas
+     * @param Carpeta 
+     */    
     public Documentos(String Carpeta) {
         this.carpeta = Carpeta;
         this.json = new Json(carpeta);
         listaJson = new ListaCir();
     }
-
+    /**
+     * Crear un nuevo json y lo almacena en la metadata
+     * @param nombrejson 
+     */
     public void AgregarJson(String nombrejson) {
         
         File directorio = new File("data/" + carpeta + "/" + nombrejson + ".json");
@@ -59,17 +65,25 @@ public class Documentos {
         //this.json.AgregarJson(nombrejson);
         
     }
-
+    /**
+     * Busca un json o/documento en la carpeta
+     * @param nombrejson 
+     */
     public void BuscarJson(String nombrejson) {
         System.out.println(listaJson.Buscar(nombrejson));
         this.json.BuscarJson(nombrejson);
     }
-
+    /**
+     * Elimina un documentos
+     * @param nombrejson 
+     */
     public void EliminarJson(String nombrejson) {
         listaJson.Eliminar(nombrejson);
         this.json.EliminarJson(nombrejson);
     }
-
+    /**
+     * Cuando se inicializa el programa carga las listas con la informacion alamacenada en disco
+     */
     public void CargarLista() {
         JSONParser parser = new JSONParser();
         FileReader fr = null;
@@ -100,7 +114,10 @@ public class Documentos {
         }
 
     }
-
+    /**
+     * Guarda el json en la metadata de cada carpeta
+     * @param nombrejson 
+     */
     public void GuardarMetada(String nombrejson) {
         String path = "data/" + carpeta + "/" + "metadata.json";
         File directorio = new File(path);
@@ -115,14 +132,14 @@ public class Documentos {
             try {
                 File f = new File("data/" + carpeta + "/" + "metadata.json");
                 f.createNewFile();
-                System.out.println("creo metadata");
+                
             } catch (IOException ex) {
                 Logger.getLogger(Documentos.class.getName()).log(Level.SEVERE, null, ex);
             }
 
         }
         try { 
-            System.out.println("me meti aqui tratbati de escribrir");
+
             Object obj = parser.parse(fr);
             JSONObject jsonObjeto = (JSONObject) obj;
             JSONObject atributosObjeto = (JSONObject) obj;

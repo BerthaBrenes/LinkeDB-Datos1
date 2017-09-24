@@ -23,8 +23,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -36,9 +34,9 @@ import javafx.stage.StageStyle;
  */
 public class FXMLDocumentController implements Initializable {
     
-    @FXML  public TextField tf_carpeta;
-    @FXML  public TextField tf_datos;
-    @FXML  public TextField tfNombre;
+    @FXML  private TextField tfCarpeta = new TextField();
+    @FXML  public TextField tf_datos = new TextField();
+    @FXML  public TextField tfNombre = new TextField();
     @FXML  public TreeView<String> tv_visual;
     @FXML  public Button bt_Documento;
     @FXML  private ListView listView;
@@ -51,13 +49,7 @@ public class FXMLDocumentController implements Initializable {
     //Image icon = new Image(getClass().getResourceAsStream("img/foldericon,.png")) {};
    
 
-    @FXML private void Mostrar(ActionEvent event) {
-       JsonStore.Retornar(tf_carpeta.getText());
-        
-    }
-    @FXML private void cargar(){
-        labelNom.setText(tfNombre.getText());
-    }
+   
     @FXML void VentanaAtributos(ActionEvent event) throws IOException{
         try{
         FXMLLoader fxmloader = new FXMLLoader(getClass().getResource("Atributos.fxml"));
@@ -70,6 +62,11 @@ public class FXMLDocumentController implements Initializable {
     }catch(Exception e){
             System.err.println("no se abre");
     }}
+    /**
+     * Metodo que abre los documentos existentes en un tableview
+     *
+     * @param event 
+     */
     public void DocumentoBt( ActionEvent event){
         FileChooser fc = new FileChooser();
         fc.setInitialDirectory(new File("/home/berta/ownCloud/NetBeansProjects/Proyecto1Datos1/EsqueletoJson/data/"));
@@ -81,15 +78,18 @@ public class FXMLDocumentController implements Initializable {
             System.out.println("no sirve como todo lo de est progra");
         }
     }
-   
+   /**
+    * crear una nueva carpeta
+    * @param evento 
+    */
     @FXML public void NuevoTitem(ActionEvent evento){
         
-        System.out.println(tf_carpeta.getText());
+        System.out.println(tfCarpeta.getText());
         //this.nomCarpeta = nom;
         //TreeItem<String> item = tv_visual.getSelectionModel().getSelectedItems();
        // item.getChildren().add(new TreeItem<String>(tf_carpeta.getText()));
         JsonStore.Inicializar();
-        JsonStore.nuevoNodo(tf_carpeta.getText());
+        JsonStore.nuevoNodo(tfCarpeta.getText());
        
     }
     @Override

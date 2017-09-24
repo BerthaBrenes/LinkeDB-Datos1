@@ -50,7 +50,9 @@ public final class Atributo implements Comparable<Atributo> {
         this.carpeta = carpet;
        
     }
-
+    /**
+     * Imprime los datos existentes en los artributos
+     */
     public void ImprimirAtributo() {
         JSONParser parser = new JSONParser();
         FileReader fr = null;
@@ -76,6 +78,9 @@ public final class Atributo implements Comparable<Atributo> {
     public void EliminarAtributo() {
 
     }
+    /**
+     * Guardar los atributos en disco
+     */
     public void GuardarAtributo(){
          String path = "data/"+carpeta+"/"+json+".json";
          JSONParser parser = new JSONParser();
@@ -115,6 +120,9 @@ public final class Atributo implements Comparable<Atributo> {
             Logger.getLogger(Documentos.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    /**
+     * Inserta los atributos en la metadata
+     */
     public void InsertarAtributo() {
         String path = "data/"+carpeta+"/metadata.json";
         JSONParser parser = new JSONParser();
