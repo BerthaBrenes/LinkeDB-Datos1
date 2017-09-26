@@ -54,78 +54,17 @@ public final class Atributo implements Comparable<Atributo> {
     public JSONObject Atributo(String nombr, String valo, String tip, String llav, String requerid) {
         String nuevoObj;
         JSONObject obj = new JSONObject();
-        obj.put("nombre:",nombr);
-        obj.put("valor: ", valo);
-        obj.put("tipo: ",tip);
-        obj.put("llave: ",llav);
-        obj.put("requerido: ",requerid);
+        obj.put("nombre",nombr);
+        obj.put("valor", valo);
+        obj.put("tipo",tip);
+        obj.put("llave",llav);
+        obj.put("requerido",requerid);
         //nuevoObj = obj.toString();
         return obj;
     }
     
 /**
-    public void ImprimirAtributo() {
-        JSONParser parser = new JSONParser();
-        FileReader fr = null;
-        try {
-            fr = new FileReader("data/" + carpeta +"/"+json+".json");
-        } catch (Exception e) {
-            System.err.print("El archivo no se pudo abrir");
-        }
-        try {
-            Object obj = parser.parse(fr);
-            JSONObject jsonObjeto = (JSONObject) obj;
-            JSONArray courseArray = (JSONArray) jsonObjeto.get("Atributos");
-            Iterator<String> iterator = courseArray.iterator();
-            while (iterator.hasNext()) {
-                
-                System.out.println("Json existentes: " + iterator.next());
-            }
-            
-        } catch (ParseException | IOException ex) {
-        }
-    }
-
-    
-    public void GuardarAtributo(){
-         String path = "data/"+carpeta+"/"+json+".json";
-         JSONParser parser = new JSONParser();
-         FileReader fr = null;
-         try{
-             fr = new FileReader(path);
-         }catch(Exception e){
-            try{
-                File f = new File(path);
-                f.createNewFile();
-            } catch (IOException ex) {
-                 Logger.getLogger(Atributo.class.getName()).log(Level.SEVERE, null, ex);
-             }
-         }
-         try{
-            Object obj = parser.parse(fr);
-            JSONObject jsonObjeto = (JSONObject) obj;
-            JSONObject atributosObjeto = new JSONObject();
-            JSONArray atributosArray = (JSONArray) jsonObjeto.get("Atributos");
-            Iterator<String> iterator = atributosArray.iterator();
-            while(iterator.hasNext()){
-                iterator.next();
-            }
-            atributosObjeto.put(this.nombre, this.valor);
-            //atributosObjeto.put("Tipo",this.tipo);
-            //atributosObjeto.put("Llave",this.llave);
-            //atributosObjeto.put("Valor",this.valor);
-            //atributosObjeto.put("Requerido",this.requerido);
-            atributosArray.add(atributosObjeto);
-            try (FileWriter file = new FileWriter(path)) {
-                file.write(obj.toString());
-                file.flush();
-            } catch (IOException e) {
-            }
-        } catch (ParseException ex) {
-        } catch (IOException ex) {
-            Logger.getLogger(Documentos.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
+   
     public void InsertarAtributo() {
         String path = "data/"+carpeta+"/metadata.json";
         JSONParser parser = new JSONParser();

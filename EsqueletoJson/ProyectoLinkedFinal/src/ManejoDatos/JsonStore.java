@@ -25,7 +25,7 @@ import org.json.simple.parser.ParseException;
 public final class JsonStore {
 
     private static ListaDo<String> listaCarpeta;
-    private static Json json;
+   // private static Json json;
     private static Documentos documento;
     private static Metadata metadataPrincipal;
 

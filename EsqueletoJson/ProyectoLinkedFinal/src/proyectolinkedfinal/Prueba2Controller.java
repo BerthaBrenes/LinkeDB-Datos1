@@ -5,10 +5,9 @@
  */
 package proyectolinkedfinal;
 
+import ManejoDatos.DocFabrica;
 import ManejoDatos.Json;
-import ManejoDatos.Llave;
 import ManejoDatos.Metadata;
-import ManejoDatos.Tipo;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -16,10 +15,8 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
-import logica.Lista;
 
 /**
  * FXML Controller class
@@ -50,6 +47,7 @@ public class Prueba2Controller implements Initializable {
         //this.objetos.AgregarJson(this.jsonAtributo);
 
     }
+    
     @FXML
     private void AtributosEnlista(ActionEvent event){
       // System.out.println(this.Nomcarpeta + "Documento: "+this.Documentojson );
@@ -64,7 +62,8 @@ public class Prueba2Controller implements Initializable {
        String valor = tfValorAtributo.getText();
        String requerido = cbrequerido.getValue().toString();
        if(!nombre.trim().isEmpty() && !tipo.isEmpty() && !llave.isEmpty() && !requerido.isEmpty()){
-           this.atributos = new Json(this.Nomcarpeta, this.Documentojson);
+           this.atributos = DocFabrica.getInstance().get(this.Nomcarpeta, this.Documentojson);
+          // this.atributos = new Json(this.Nomcarpeta, this.Documentojson);
            this.atributos.AgregarAtributos(nombre, valor, tipo, llave, requerido);
            
        }else{

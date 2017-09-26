@@ -10,7 +10,7 @@ package logica;
  * @author berta
  * @param <T>
  */
-public class Lista<T extends Comparable<T>> implements Listas<T> {
+public class Lista<T> {
 
     protected Nodo<T> head;
     protected Nodo<T> tail;    
@@ -28,7 +28,7 @@ public class Lista<T extends Comparable<T>> implements Listas<T> {
      * @param i
      * @return
      */
-    @Override
+    //@Override
     public T Iterador(int i) {
         if (i > length) {
             return null;
@@ -48,7 +48,7 @@ public class Lista<T extends Comparable<T>> implements Listas<T> {
      *
      * @return
      */
-    @Override
+    //@Override
     public int Largo() {
         return length;
     }
@@ -58,7 +58,7 @@ public class Lista<T extends Comparable<T>> implements Listas<T> {
      *
      * @param n
      */
-    @Override
+    //@Override
     public void Insertar(T n) {
         Nodo<T> nuevo = new Nodo<>(n);
         if (length == 0) {//si la lista es vacia
@@ -75,7 +75,7 @@ public class Lista<T extends Comparable<T>> implements Listas<T> {
     /**
      * funcion print recorre la lista e imprime el dato
      */
-    @Override
+    //@Override
     public void Imprimir() {
         Nodo<T> temp = head;
         System.out.println("contenido de la lista");
@@ -106,24 +106,24 @@ public class Lista<T extends Comparable<T>> implements Listas<T> {
         }
     }
 
-    @Override
+    ///@Override
     public void Eliminar(T buscado) {
         Nodo<T> temp = this.head;
-        if (this.head.getDato().compareTo(buscado) == 0) {
+        if (this.head.getDato() == buscado) {
             this.head = this.head.getNext();
             System.out.println("hey soy el primero");
         } else {
             while (temp.getNext() != null) {
                 if (temp.getNext() == this.tail) {
                     System.out.println("primer if");
-                    if (this.tail.getDato().compareTo(buscado) == 0) {
+                    if (this.tail.getDato() == buscado) {
                         EliminarUltimo();
                         break;
                     } else {
                         temp = temp.getNext();
                     }                    
                 } 
-                else if (temp.getNext().getDato().compareTo(buscado) == 0) {
+                else if (temp.getNext().getDato() == buscado) {
                     temp.setNext(temp.getNext().getNext());
                     System.out.println("heyyy estoy en el medio");
                     this.length -=1;
@@ -145,7 +145,7 @@ public class Lista<T extends Comparable<T>> implements Listas<T> {
     public Nodo<T> Buscar(T buscado) {
         Nodo<T> actual = this.head;
         while (actual != null) {
-            if (actual.getDato().compareTo(buscado) == 0) {
+            if (actual.getDato() == buscado) {
                 return actual;
             } else {
                 actual = actual.getNext();
@@ -162,11 +162,11 @@ public class Lista<T extends Comparable<T>> implements Listas<T> {
      * @param buscado
      * @return
      */
-    @Override
+    //@Override
     public boolean Existe(T buscado) {
         Nodo<T> actual = this.head;
         while (actual != null) {
-            if (actual.getDato().compareTo(buscado) == 0) {
+            if (actual.getDato() == buscado) {
                 return true;
             } else {
                 actual = actual.getNext();

@@ -5,6 +5,7 @@
  */
 package ManejoDatos;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -35,5 +36,8 @@ public class DocFabrica {
             instancias.put(nombreC+nombreD, nuevo); 
         }
         return nuevo;
+    }
+    public DocFabrica(){
+        instancias = new HashMap<>();
     }
 }

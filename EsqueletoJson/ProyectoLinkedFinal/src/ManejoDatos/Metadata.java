@@ -36,7 +36,7 @@ public class Metadata implements Comparable<Metadata> {
      */
     public Metadata(String carpeta) {
         this.carpeta = carpeta;
-        json = new Json(carpeta);
+        json = DocFabrica.getInstance().get(carpeta);
 
     }
 
@@ -270,7 +270,7 @@ public class Metadata implements Comparable<Metadata> {
         }
 
     }
-
+   
     /**
      * Verifica que temporal cuante con todas todos los nombres de las
      * docuementos
@@ -371,7 +371,42 @@ public class Metadata implements Comparable<Metadata> {
             Logger.getLogger(Documentos.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    public void InsertarSecundaria(JSONObject atributos,String nombrejson){
+        String path = "data/"+carpeta+"/metadata.json";
+        JSONParser parser = new JSONParser();
+        FileReader fr = null;
+        try {
+            fr = new FileReader(path);
+        } catch (Exception e) {
+            try {
+                File f = new File(path);
+                f.createNewFile();
+            } catch (IOException ex) {
+                System.out.print("no se abrio");
+                Logger.getLogger(Atributo.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        try {
+            Object obj = parser.parse(fr);
+            JSONObject atributObjeto = (JSONObject) obj;
+            JSONArray jsonArray = (JSONArray)atributObjeto.get("DocumentosJson") ;
+            JSONArray atributosArray = (JSONArray) jsonArray.get(jsonArray.indexOf(nombrejson));
+            JSONObject atributosObjeto = new JSONObject();
+           
+            atributosArray.add(atributos);
+            //atributObjeto.put("Atributos", atributosArray);
+            
+            try (FileWriter file = new FileWriter(path)) {
+                file.write(obj.toString());
+                file.flush();
+                System.out.print(atributObjeto);
+            } catch (IOException e) {
+            }
+        } catch (ParseException ex) {
+        } catch (IOException ex) {
+            Logger.getLogger(Atributo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     /**
      * Este metodo carga toda la informacion que existe en la carpeta usando la
      * metadata

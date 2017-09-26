@@ -30,7 +30,7 @@ public class Documentos {
 
     public Documentos(String Carpeta) {
         this.carpeta = Carpeta;
-        this.json = new Json(carpeta);
+        json = DocFabrica.getInstance().get(Carpeta);
         listaJson = new ListaCir();
         CargarLista();
         

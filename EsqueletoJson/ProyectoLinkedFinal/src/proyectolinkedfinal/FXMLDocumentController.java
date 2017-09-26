@@ -5,6 +5,7 @@
  */
 package proyectolinkedfinal;
 
+import ManejoDatos.DocFabrica;
 import ManejoDatos.Documentos;
 import ManejoDatos.Json;
 import ManejoDatos.JsonStore;
@@ -22,17 +23,12 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonBar.ButtonData;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.ContextMenu;
-import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
@@ -42,7 +38,6 @@ import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Callback;
@@ -125,13 +120,13 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private void AnadirAtributo(ActionEvent event) {
         TreeItem<String> item = (TreeItem<String>) tvDatos.getSelectionModel().getSelectedItem();
-        if (item.isLeaf()) {
+        if (item.isLeaf() && item.getParent().getValue() != "Data") {
             System.out.println(item.getValue());
             //this.ventada2.setCarpeta(item.getValue());
             //this.objetos = new Json(item.getValue());
             try {
                 FXMLLoader fxmloader = new FXMLLoader(getClass().getResource("prueba2.fxml"));
-                
+
                 Parent root1 = (Parent) fxmloader.load();
                 Stage stage = new Stage();
                 stage.initStyle(StageStyle.DECORATED);
@@ -148,22 +143,36 @@ public class FXMLDocumentController implements Initializable {
 
         }
     }
+    
+    @FXML
+    private void Commit(ActionEvent event) {
+        TreeItem<String> item = (TreeItem<String>) tvDatos.getSelectionModel().getSelectedItem();
+        if (item.isLeaf() && item.getParent().getValue() != "Data"){
+          this.objetos = DocFabrica.getInstance().get(item.getParent().getValue(), item.getValue());
+          
+           int iterador = objetos.getLista().Largo();
+          for (int i =0; i < iterador;i++ ){
+              System.out.println("agregando:"+i);
+              objetos.CommitAtributo(objetos.getLista().Iterador(i).get("nombre").toString(),objetos.getLista().Iterador(i).get("valor").toString());
+              objetos.GuardarAtributoMetadata(objetos.getLista().Iterador(i));
+          }
+          
+        }
+    }
 
     @FXML
     private void AnadirChancha(ActionEvent event) {
         this.atributos.setTitle("Datos Atributos");
-       this.atributos.setHeaderText("Ingrese los datos del atributo");
-       this.atributos.setContentText("Nombre");
-       Optional<String> result = this.atributos.showAndWait();
-       result.ifPresent(name -> System.out.println("Your name: " + name));
-       this.dialogData = Arrays.asList(this.arrayData);
-       ChoiceDialog dialog = new ChoiceDialog(this.dialogData.get(0), dialogData);
-       Optional<String> tipo = dialog.showAndWait();
-       if( tipo.isPresent()){
-           System.out.println(tipo.get());
-       }
-        
-        
+        this.atributos.setHeaderText("Ingrese los datos del atributo");
+        this.atributos.setContentText("Nombre");
+        Optional<String> result = this.atributos.showAndWait();
+        result.ifPresent(name -> System.out.println("Your name: " + name));
+        this.dialogData = Arrays.asList(this.arrayData);
+        ChoiceDialog dialog = new ChoiceDialog(this.dialogData.get(0), dialogData);
+        Optional<String> tipo = dialog.showAndWait();
+        if (tipo.isPresent()) {
+            System.out.println(tipo.get());
+        }
 
     }
 
