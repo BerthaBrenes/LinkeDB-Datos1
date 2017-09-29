@@ -15,6 +15,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 
@@ -30,9 +31,11 @@ public class Prueba2Controller implements Initializable {
     @FXML private ComboBox cbllave;
     @FXML private ComboBox cbrequerido;
     @FXML private ComboBox cbTipo;
-    ObservableList<String> listllave = FXCollections.observableArrayList("flotante","primaria");
+    ObservableList<String> listllave = FXCollections.observableArrayList("foranea","primaria");
     ObservableList<String> listtipo = FXCollections.observableArrayList("entero","flotante","fecha-hora","cadena");
     ObservableList<String> listrequerido = FXCollections.observableArrayList("False","True");
+     @FXML
+    private Alert alert = new Alert(Alert.AlertType.WARNING);
     public String Documentojson;
     private Json atributos;
     public String Nomcarpeta;
@@ -50,12 +53,6 @@ public class Prueba2Controller implements Initializable {
     
     @FXML
     private void AtributosEnlista(ActionEvent event){
-      // System.out.println(this.Nomcarpeta + "Documento: "+this.Documentojson );
-       Metadata temporales = new Metadata(this.Nomcarpeta);
-       //temporales.Agregar();
-        temporales.CrearTemporales();
-       
-       
        String nombre =  tfNomAtributo.getText();
        String tipo = cbTipo.getValue().toString();
        String llave = cbllave.getValue().toString();
@@ -67,7 +64,11 @@ public class Prueba2Controller implements Initializable {
            this.atributos.AgregarAtributos(nombre, valor, tipo, llave, requerido);
            
        }else{
-           
+           alert.setTitle("Aviso");
+            alert.setHeaderText(null);
+            alert.setContentText("Necesita rellenar todos los espacios valido para crear los atributos");
+            System.err.print("Faltan Datos");
+            alert.showAndWait();
        }
     }
     

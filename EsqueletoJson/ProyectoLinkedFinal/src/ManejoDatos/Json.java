@@ -88,8 +88,8 @@ public class Json {
         JSONObject valor = atributos.Atributo(nombr, valo, tip, llav, requerid);
         listaAtributos.Insertar(valor);
         listaAtributos.Imprimir();
-        Metadata metadatatemp = new Metadata(carpeta);
-        metadatatemp.AgregarTemporar(nombreJson, valor);
+        //Metadata metadatatemp = new Metadata(carpeta);
+        //metadatatemp.AgregarTemporar(nombreJson, valor);
        
 
     }

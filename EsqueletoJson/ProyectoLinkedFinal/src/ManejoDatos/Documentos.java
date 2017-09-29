@@ -105,8 +105,7 @@ public class Documentos {
 
         } catch (IOException | ParseException ex) {
             Logger.getLogger(Documentos.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
+}
     }
 /**
  * Guarda el nuevo documento en la metadata principal

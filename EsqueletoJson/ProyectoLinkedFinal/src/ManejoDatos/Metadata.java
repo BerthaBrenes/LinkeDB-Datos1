@@ -5,12 +5,11 @@
  */
 package ManejoDatos;
 
-import logica.ListaCir;
+
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Collection;
 import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -205,7 +204,8 @@ public class Metadata implements Comparable<Metadata> {
         try {
             Object obj = parser.parse(fr);
             JSONObject jsonObjeto = (JSONObject) obj;
-            JSONObject atributosObjeto = (JSONObject) obj;
+            //JSONObject docuObjeto = (JSONObject) obj;
+            JSONArray atributosarray = new JSONArray() ;
             JSONArray jsonArray = (JSONArray) jsonObjeto.get("DocumentosJson");
             Iterator<String> iterator = jsonArray.iterator();
             while (iterator.hasNext()) {
@@ -213,6 +213,7 @@ public class Metadata implements Comparable<Metadata> {
             }
 
             jsonArray.add(nombrejson);
+            jsonObjeto.put(nombrejson, atributosarray);
             try (FileWriter file = new FileWriter("data/" + carpeta + "/" + "metadata.json")) {
                 file.write(obj.toString());
                 file.flush();
@@ -224,155 +225,16 @@ public class Metadata implements Comparable<Metadata> {
         }
     }
 
-    /**
-     * Crea una metadata temporal en la carpeta previamente seteado
-     */
-    public void CrearTemporales() {
-        String path = "data/" + carpeta + "/metadataTemp.json";
-        File directorio = new File(path);
-        JSONParser parser = new JSONParser();
-        FileReader fr = null;
-        if (directorio.exists()) {
-            try {
-                fr = new FileReader(path);
-            } catch (Exception e) {
-                System.err.print("El archivo no se pudo abrir");
-            }
-        } else {
-            JSONObject obj = new JSONObject();
-            JSONArray listAtributos = new JSONArray();
-            //System.out.println(CargoDocumentos());
-            try {
-                fr = new FileReader("data/" + carpeta + "/metadata.json");
-            } catch (Exception e) {
-                System.err.print("El archivo no se pudo abrir");
-            }
-            try {
-                Object obj2 = parser.parse(fr);
-                JSONObject jsonObjeto = (JSONObject) obj2;
-                JSONArray courseArray = (JSONArray) jsonObjeto.get("DocumentosJson");
-                Iterator<String> iterator = courseArray.iterator();
+    
 
-                while (iterator.hasNext()) {
-                    obj.put(iterator.next(), listAtributos);
-                }
-                //(String) obj;
-            } catch (ParseException | IOException ex) {
-            }
-
-            try (FileWriter file = new FileWriter(path)) {
-                file.write(obj.toString());
-                file.flush();
-            } catch (IOException e) {
-            }
-
-            System.out.println(obj);
-        }
-
-    }
    
-    /**
-     * Verifica que temporal cuante con todas todos los nombres de las
-     * docuementos
-     */
-    public void Actualizar() {
-        Documentos prueba = new Documentos(carpeta);
-        ListaCir<String> lista = prueba.getLista();
-        String path = "data/" + carpeta + "/" + "metadataTemp.json";
-        File directorio = new File(path);
-        JSONParser parser = new JSONParser();
-        FileReader fr = null;
-        try {
-            fr = new FileReader(path);
-        } catch (Exception e) {
-            try {
-                File f = new File(path);
-                f.createNewFile();
-            } catch (IOException ex) {
-                Logger.getLogger(Documentos.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-        }
-        try {
-            Object obj = parser.parse(fr);
-            JSONObject obj1 = new JSONObject();
-            JSONObject jsonObjeto = (JSONObject) obj;
-            JSONArray listAtributos = new JSONArray();
-            Collection name = jsonObjeto.keySet();
-            Iterator<String> iterator = name.iterator();
-            lista.Imprimir();
-            int iterador1 = lista.Largo();
-            int iterador2 = 0;
-            while (iterador1 != 0) {
-                System.out.println(iterador1);
-                System.out.println(iterador2);
-                if (iterator.hasNext()) {
-                    if (lista.Iterador(iterador2) == iterator.next()) {
-                        iterador1--;
-                        iterador2++;
-                    }
-                } else {
-                    obj1.put(lista.Iterador(iterador2), listAtributos);
-                    iterador1--;
-                    iterador2++;
-                }
-            }
-            try (FileWriter file = new FileWriter(path)) {
-                file.write(obj1.toString());
-                file.flush();
-            } catch (IOException e) {
-            }
-            //System.out.print(name);
-        } catch (ParseException ex) {
-        } catch (IOException ex) {
-            Logger.getLogger(Documentos.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    /**
-     * Guarda el nuevo valor asignado al documento que le tengo que agregar
-     *
-     * @param nombredocument
-     * @param valor1 un objeto
-     */
-    public void AgregarTemporar(String nombredocument, JSONObject valor1) {
-        System.out.println("Carpeta:" + this.carpeta);
-        System.out.println("documento: " + nombredocument);
-        String path = "data/" + this.carpeta + "/metadataTemp.json";
-        //File directorio = new File(path);
-        JSONParser parser = new JSONParser();
-        FileReader fr = null;
-        try {
-            fr = new FileReader(path);
-        } catch (Exception e) {
-            try {
-                System.out.println("creando nuevo archivo");
-                File f = new File(path);
-                f.createNewFile();
-            } catch (IOException ex) {
-                Logger.getLogger(Documentos.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-        }
-        try {
-            Object obj = parser.parse(fr);
-            JSONObject jsonObjeto = (JSONObject) obj;
-            JSONArray jsonArray = (JSONArray) jsonObjeto.get(nombredocument);
-            //Iterator<String> iterator = jsonArray.iterator();
-            System.out.println(jsonObjeto.toJSONString());
-            jsonArray.add(valor1);
-            try (FileWriter file = new FileWriter(path)) {
-                file.write(jsonObjeto.toJSONString());
-                file.flush();
-            } catch (IOException e) {
-            }
-        } catch (ParseException ex) {
-        } catch (IOException ex) {
-            Logger.getLogger(Documentos.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    public void InsertarSecundaria(JSONObject atributos,String nombrejson){
-        String path = "data/"+carpeta+"/metadata.json";
+/**+
+ * Esta funcion inserta en las metadatas secundarias los atributos en las listas de los documentos
+ * @param atributos
+ * @param nombrejson 
+ */
+    public void InsertarSecundaria(JSONObject atributos, String nombrejson) {
+        String path = "data/" + carpeta + "/metadata.json";
         JSONParser parser = new JSONParser();
         FileReader fr = null;
         try {
@@ -389,13 +251,15 @@ public class Metadata implements Comparable<Metadata> {
         try {
             Object obj = parser.parse(fr);
             JSONObject atributObjeto = (JSONObject) obj;
-            JSONArray jsonArray = (JSONArray)atributObjeto.get("DocumentosJson") ;
-            JSONArray atributosArray = (JSONArray) jsonArray.get(jsonArray.indexOf(nombrejson));
-            JSONObject atributosObjeto = new JSONObject();
-           
-            atributosArray.add(atributos);
-            //atributObjeto.put("Atributos", atributosArray);
+            JSONArray jsonArray = (JSONArray) atributObjeto.get(nombrejson);
+            Iterator<Object> iterator = jsonArray.iterator();
+            while (iterator.hasNext()) {
+                System.out.print(iterator.next());
+            }
+
+            jsonArray.add(atributos);
             
+
             try (FileWriter file = new FileWriter(path)) {
                 file.write(obj.toString());
                 file.flush();
@@ -407,6 +271,7 @@ public class Metadata implements Comparable<Metadata> {
             Logger.getLogger(Atributo.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
     /**
      * Este metodo carga toda la informacion que existe en la carpeta usando la
      * metadata

@@ -99,7 +99,7 @@ public class FXMLDocumentController implements Initializable {
         String documenti = tfDocuemento.getText();
         System.out.println(documenti);
         TreeItem<String> item = (TreeItem<String>) tvDatos.getSelectionModel().getSelectedItem();
-        if (!documenti.trim().isEmpty()) {
+        if (!documenti.trim().isEmpty() && item.getParent().getValue() == "Data") {
 
             item.getChildren().add(new TreeItem<>(documenti));
             //System.out.println(item.toString());
@@ -140,7 +140,12 @@ public class FXMLDocumentController implements Initializable {
             } catch (Exception e) {
                 System.err.println("no se abre");
             }
-
+        }else{
+            alert.setTitle("Aviso");
+            alert.setHeaderText(null);
+            alert.setContentText("Necesita seleccionar el documento donde se va a almacenar los atributos");
+            System.err.print("Necesita seleccionar el documento");
+            alert.showAndWait();
         }
     }
     
@@ -157,24 +162,16 @@ public class FXMLDocumentController implements Initializable {
               objetos.GuardarAtributoMetadata(objetos.getLista().Iterador(i));
           }
           
+        }else{
+             alert.setTitle("Aviso");
+            alert.setHeaderText(null);
+            alert.setContentText("Necesita seleccionar el documento donde se va a almacenar los atributos");
+            System.err.print("Necesita seleccionar el documento");
+            alert.showAndWait();
         }
     }
 
-    @FXML
-    private void AnadirChancha(ActionEvent event) {
-        this.atributos.setTitle("Datos Atributos");
-        this.atributos.setHeaderText("Ingrese los datos del atributo");
-        this.atributos.setContentText("Nombre");
-        Optional<String> result = this.atributos.showAndWait();
-        result.ifPresent(name -> System.out.println("Your name: " + name));
-        this.dialogData = Arrays.asList(this.arrayData);
-        ChoiceDialog dialog = new ChoiceDialog(this.dialogData.get(0), dialogData);
-        Optional<String> tipo = dialog.showAndWait();
-        if (tipo.isPresent()) {
-            System.out.println(tipo.get());
-        }
-
-    }
+ 
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -183,7 +180,7 @@ public class FXMLDocumentController implements Initializable {
         for (int i = 0; i < iteradorC; i++) {
             TreeItem<String> nombre = new TreeItem<>(carpetasTree.Iterador(i));
             Documentos documentos = new Documentos(carpetasTree.Iterador(i));
-            int iteradorD = documentos.getLargolista();
+           int iteradorD = documentos.getLargolista();
             System.out.print(iteradorD);
             ListaCir<String> documentosTree = documentos.getLista();
             for (int j = 0; j < iteradorD; j++) {
