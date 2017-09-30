@@ -65,6 +65,8 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private Alert alert = new Alert(Alert.AlertType.WARNING);
     @FXML
+    TextInputDialog dialog = new TextInputDialog();
+    @FXML
     TextInputDialog atributos = new TextInputDialog();
     private final String[] arrayData = {"entero", "date", "flotante"};
     private List<String> dialogData;
@@ -76,12 +78,12 @@ public class FXMLDocumentController implements Initializable {
     Json objetos;
 
     @FXML
-    private void handleButtonAction(ActionEvent event) {
+    private void CrearCarpeta(ActionEvent event) {
         String carpeta = tfStore.getText();
         System.out.println(carpeta);
-        if (!carpeta.trim().isEmpty()) {
+        TreeItem<String> item = (TreeItem<String>) tvDatos.getSelectionModel().getSelectedItem();
+        if (!tvDatos.getSelectionModel().isEmpty() && !carpeta.trim().isEmpty() && item.getParent() == null) {
             store.nuevoNodo(carpeta);
-            TreeItem<String> item = (TreeItem<String>) tvDatos.getSelectionModel().getSelectedItem();
             item.getChildren().add(new TreeItem<>(carpeta));
             System.out.println(item.isLeaf());
         } else {
@@ -99,18 +101,32 @@ public class FXMLDocumentController implements Initializable {
         String documenti = tfDocuemento.getText();
         System.out.println(documenti);
         TreeItem<String> item = (TreeItem<String>) tvDatos.getSelectionModel().getSelectedItem();
-        if (!documenti.trim().isEmpty() && item.getParent().getValue() == "Data") {
-
-            item.getChildren().add(new TreeItem<>(documenti));
-            //System.out.println(item.toString());
-            System.out.println(item.getValue());
-            System.out.println(item.getParent());
-            Documentos documento1 = new Documentos(item.getValue());
-            documento1.AgregarJson(documenti);
+        if (!tvDatos.getSelectionModel().isEmpty()) {
+            if (item.getParent() != null) {
+                if (!documenti.trim().isEmpty() && !tvDatos.getSelectionModel().isEmpty() && item.getParent().getValue() == "Data") {
+                    item.getChildren().add(new TreeItem<>(documenti));
+                    System.out.println(item.getValue());
+                    System.out.println(item.getParent());
+                    Documentos documento1 = new Documentos(item.getValue());
+                    documento1.AgregarJson(documenti);
+                } else {
+                    alert.setTitle("Aviso");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Necesita ingresar un nombre valido para crear un documento y seleccionar una carpeta");
+                    System.err.print("Necesita ingresar un nombre valido");
+                    alert.showAndWait();
+                }
+            } else {
+                alert.setTitle("Aviso");
+                alert.setHeaderText(null);
+                alert.setContentText("Necesita seleccionar una carpeta diferente de Data");
+                System.err.print("Necesita ingresar un nombre valido");
+                alert.showAndWait();
+            }
         } else {
             alert.setTitle("Aviso");
             alert.setHeaderText(null);
-            alert.setContentText("Necesita ingresar un nombre valido para crear un documento y seleccionar la carpeta donde se va a almacenar el dato");
+            alert.setContentText("Necesita seleccionar una carpeta");
             System.err.print("Necesita ingresar un nombre valido");
             alert.showAndWait();
         }
@@ -120,27 +136,41 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private void AnadirAtributo(ActionEvent event) {
         TreeItem<String> item = (TreeItem<String>) tvDatos.getSelectionModel().getSelectedItem();
-        if (item.isLeaf() && item.getParent().getValue() != "Data") {
-            System.out.println(item.getValue());
-            //this.ventada2.setCarpeta(item.getValue());
-            //this.objetos = new Json(item.getValue());
-            try {
-                FXMLLoader fxmloader = new FXMLLoader(getClass().getResource("prueba2.fxml"));
+        if (!tvDatos.getSelectionModel().isEmpty()) {
+            if (item.getParent() != null) {
+                if (item.isLeaf() && item.getParent().getValue() != "Data") {
+                    System.out.println(item.getValue());
+                    try {
+                        FXMLLoader fxmloader = new FXMLLoader(getClass().getResource("prueba2.fxml"));
 
-                Parent root1 = (Parent) fxmloader.load();
-                Stage stage = new Stage();
-                stage.initStyle(StageStyle.DECORATED);
-                stage.setTitle("Atributos");
-                stage.setScene(new Scene(root1));
-                stage.show();
-                Prueba2Controller controller = fxmloader.getController();
-                controller.Documentojson = item.getValue();
-                controller.Nomcarpeta = item.getParent().getValue();
-                System.out.println(item.getParent().getValue());
-            } catch (Exception e) {
-                System.err.println("no se abre");
+                        Parent root1 = (Parent) fxmloader.load();
+                        Stage stage = new Stage();
+                        stage.initStyle(StageStyle.DECORATED);
+                        stage.setTitle("Atributos");
+                        stage.setScene(new Scene(root1));
+                        stage.show();
+                        Prueba2Controller controller = fxmloader.getController();
+                        controller.Documentojson = item.getValue();
+                        controller.Nomcarpeta = item.getParent().getValue();
+                        System.out.println(item.getParent().getValue());
+                    } catch (Exception e) {
+                        System.err.println("no se abre");
+                    }
+                } else {
+                    alert.setTitle("Aviso");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Necesita seleccionar el documento donde se va a almacenar los atributos");
+                    System.err.print("Necesita seleccionar el documento");
+                    alert.showAndWait();
+                }
+            } else {
+                alert.setTitle("Aviso");
+                alert.setHeaderText(null);
+                alert.setContentText("El documento no debe ser la Data");
+                System.err.print("Necesita seleccionar el documento");
+                alert.showAndWait();
             }
-        }else{
+        } else {
             alert.setTitle("Aviso");
             alert.setHeaderText(null);
             alert.setContentText("Necesita seleccionar el documento donde se va a almacenar los atributos");
@@ -148,39 +178,47 @@ public class FXMLDocumentController implements Initializable {
             alert.showAndWait();
         }
     }
-    
+
     @FXML
     private void Commit(ActionEvent event) {
         TreeItem<String> item = (TreeItem<String>) tvDatos.getSelectionModel().getSelectedItem();
-        if (item.isLeaf() && item.getParent().getValue() != "Data"){
-          this.objetos = DocFabrica.getInstance().get(item.getParent().getValue(), item.getValue());
-          
-           int iterador = objetos.getLista().Largo();
-          for (int i =0; i < iterador;i++ ){
-              System.out.println("agregando:"+i);
-              objetos.CommitAtributo(objetos.getLista().Iterador(i).get("nombre").toString(),objetos.getLista().Iterador(i).get("valor").toString());
-              objetos.GuardarAtributoMetadata(objetos.getLista().Iterador(i));
-          }
-          
-        }else{
-             alert.setTitle("Aviso");
+        if (!tvDatos.getSelectionModel().isEmpty()) {
+
+            if (item.isLeaf() && item.getParent().getValue() != "Data") {
+                this.objetos = DocFabrica.getInstance().get(item.getParent().getValue(), item.getValue());
+
+                int iterador = objetos.getLista().Largo();
+                for (int i = 0; i < iterador; i++) {
+                    System.out.println("agregando:" + i);
+                    objetos.CommitAtributo(objetos.getLista().Iterador(i).get("nombre").toString(), objetos.getLista().Iterador(i).get("valor").toString());
+                    objetos.GuardarAtributoMetadata(objetos.getLista().Iterador(i));
+                }
+
+            } else {
+                alert.setTitle("Aviso");
+                alert.setHeaderText(null);
+                alert.setContentText("Necesita seleccionar el documento donde se va a almacenar los atributos");
+                System.err.print("Necesita seleccionar el documento");
+                alert.showAndWait();
+            }
+        } else {
+            alert.setTitle("Aviso");
             alert.setHeaderText(null);
-            alert.setContentText("Necesita seleccionar el documento donde se va a almacenar los atributos");
+            alert.setContentText("Necesita seleccionar el documento");
             System.err.print("Necesita seleccionar el documento");
             alert.showAndWait();
         }
     }
 
- 
-
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
+    public void initialize(URL url, ResourceBundle rb
+    ) {
         int iteradorC = store.getLargolista();
         ListaDo<String> carpetasTree = store.getLista();
         for (int i = 0; i < iteradorC; i++) {
             TreeItem<String> nombre = new TreeItem<>(carpetasTree.Iterador(i));
             Documentos documentos = new Documentos(carpetasTree.Iterador(i));
-           int iteradorD = documentos.getLargolista();
+            int iteradorD = documentos.getLargolista();
             System.out.print(iteradorD);
             ListaCir<String> documentosTree = documentos.getLista();
             for (int j = 0; j < iteradorD; j++) {
@@ -204,22 +242,49 @@ public class FXMLDocumentController implements Initializable {
     private final class TextFieldTreeCellImpl extends TreeCell<String> {
 
         private TextField textField;
-        private ContextMenu addMenu = new ContextMenu();
+        private ContextMenu MenuCar = new ContextMenu();
+        private ContextMenu MenuDocs = new ContextMenu();
 
         public TextFieldTreeCellImpl() {
-            MenuItem agregar = new MenuItem("Agregar Documento");
-            MenuItem eliminar = new MenuItem("Eliminar");
-            addMenu.getItems().addAll(agregar, eliminar);
-            agregar.setOnAction(new EventHandler() {
+            MenuItem agregarC = new MenuItem("Agregar Documento");
+            MenuItem eliminarC = new MenuItem("Eliminar");
+            MenuItem eliminarD = new MenuItem("Eliminar");
+            MenuCar.getItems().addAll(agregarC, eliminarC);
+            MenuDocs.getItems().add(eliminarD);
+            agregarC.setOnAction(new EventHandler() {
                 public void handle(Event t) {
-                    TreeItem newEmployee
-                            = new TreeItem<>("Documento1");
-                    getTreeItem().getChildren().add(newEmployee);
+                    dialog.setTitle("Nombre documento");
+                    dialog.setHeaderText(null);
+                    dialog.setContentText("Npmbre del documento:");
+                    Optional<String> result = dialog.showAndWait();
+                    if (result.isPresent()) {
+                        System.out.println("Your name: " + result.get());
+                    }
+
+                    TreeItem nuevoDocumento = new TreeItem<>(result.get());
+                    getTreeItem().getChildren().add(nuevoDocumento);
+                    Documentos documento1 = new Documentos(getStringF());
+                    documento1.AgregarJson(result.get());
+                    //store.nuevoNodo(result.get());
+
                 }
             });
-            eliminar.setOnAction(new EventHandler() {
+            eliminarC.setOnAction(new EventHandler() {
                 public void handle(Event t) {
-                    System.out.print(getStringF());
+
+                    System.out.println("no recuerdo" + getStringF());
+                    store.Eliminar(getStringF());
+                    updateItem(getStringF(), true);
+
+                }
+            });
+            eliminarD.setOnAction(new EventHandler() {
+                public void handle(Event t) {
+                    System.out.println("docu: " + getStringF()+" algo:" + getTreeItem().getParent().getValue() );
+                    Documentos documentos = new Documentos(getTreeItem().getParent().getValue());
+                    documentos.EliminarJson(getStringF());
+                    updateItem(getStringF(), true);
+
                 }
             });
         }
@@ -239,6 +304,7 @@ public class FXMLDocumentController implements Initializable {
             if (empty) {
                 setText(null);
                 setGraphic(null);
+
             } else if (isEditing()) {
                 if (textField != null) {
                     textField.setText(getStringF());
@@ -249,8 +315,19 @@ public class FXMLDocumentController implements Initializable {
                 setText(getStringF());
                 setGraphic(getTreeItem().getGraphic());
                 if (!getTreeItem().isLeaf() && getTreeItem().getParent() != null) {
-                    setContextMenu(addMenu);
+                    setContextMenu(MenuCar);
+                } else if (getTreeItem().getParent() != null && getTreeItem().isLeaf()) {
+                    if (getTreeItem().getParent().getValue() == "Data") {
+                        setContextMenu(MenuCar);
+                    }else{
+                        setContextMenu(MenuDocs);
+                        
+                    }
+
+                } else {
+                    // setContextMenu(agregarMenu);
                 }
+
             }
         }
 
@@ -262,7 +339,9 @@ public class FXMLDocumentController implements Initializable {
                 public void handle(KeyEvent t) {
                     if (t.getCode()
                             == KeyCode.ENTER) {
+
                         commitEdit(textField.getText());
+
                     } else if (t.getCode() == KeyCode.ESCAPE) {
                         cancelEdit();
                     }

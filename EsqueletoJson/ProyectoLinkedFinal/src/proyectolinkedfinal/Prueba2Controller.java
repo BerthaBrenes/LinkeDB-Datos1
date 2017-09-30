@@ -24,25 +24,30 @@ import javafx.scene.control.TextField;
  *
  * @author berta
  */
-
 public class Prueba2Controller implements Initializable {
-    @FXML private TextField tfNomAtributo = new TextField();
-    @FXML private TextField tfValorAtributo = new TextField();
-    @FXML private ComboBox cbllave;
-    @FXML private ComboBox cbrequerido;
-    @FXML private ComboBox cbTipo;
-    ObservableList<String> listllave = FXCollections.observableArrayList("foranea","primaria");
-    ObservableList<String> listtipo = FXCollections.observableArrayList("entero","flotante","fecha-hora","cadena");
-    ObservableList<String> listrequerido = FXCollections.observableArrayList("False","True");
-     @FXML
+
+    @FXML
+    private TextField tfNomAtributo = new TextField();
+    @FXML
+    private TextField tfValorAtributo = new TextField();
+    @FXML
+    private ComboBox cbllave;
+    @FXML
+    private ComboBox cbrequerido;
+    @FXML
+    private ComboBox cbTipo;
+    ObservableList<String> listllave = FXCollections.observableArrayList("foranea", "primaria");
+    ObservableList<String> listtipo = FXCollections.observableArrayList("entero", "flotante", "fecha-hora", "cadena");
+    ObservableList<String> listrequerido = FXCollections.observableArrayList("False", "True");
+    @FXML
     private Alert alert = new Alert(Alert.AlertType.WARNING);
     public String Documentojson;
     private Json atributos;
     public String Nomcarpeta;
 
     //public void setCarpeta(String nombre){
-        //System.out.println(nombre);
-        //jsonCarpeta = nombre;
+    //System.out.println(nombre);
+    //jsonCarpeta = nombre;
     //}
     @FXML
     private void NombrePRueba(ActionEvent event) {
@@ -50,38 +55,44 @@ public class Prueba2Controller implements Initializable {
         //this.objetos.AgregarJson(this.jsonAtributo);
 
     }
-    
+
     @FXML
-    private void AtributosEnlista(ActionEvent event){
-       String nombre =  tfNomAtributo.getText();
-       String tipo = cbTipo.getValue().toString();
-       String llave = cbllave.getValue().toString();
-       String valor = tfValorAtributo.getText();
-       String requerido = cbrequerido.getValue().toString();
-       if(!nombre.trim().isEmpty() && !tipo.isEmpty() && !llave.isEmpty() && !requerido.isEmpty()){
-           this.atributos = DocFabrica.getInstance().get(this.Nomcarpeta, this.Documentojson);
-          // this.atributos = new Json(this.Nomcarpeta, this.Documentojson);
-           this.atributos.AgregarAtributos(nombre, valor, tipo, llave, requerido);
-           
-       }else{
-           alert.setTitle("Aviso");
+    private void AtributosEnlista(ActionEvent event) {
+        if (cbTipo.getValue() != null && cbllave.getValue() != null && cbrequerido.getValue() != null) {
+
+            String nombre = tfNomAtributo.getText();
+            String tipo = cbTipo.getValue().toString();
+            String llave = cbllave.getValue().toString();
+            String valor = tfValorAtributo.getText();
+            String requerido = cbrequerido.getValue().toString();
+            if (!nombre.trim().isEmpty() && !tipo.isEmpty() && !llave.isEmpty() && !requerido.isEmpty()) {
+                this.atributos = DocFabrica.getInstance().get(this.Nomcarpeta, this.Documentojson);
+                // this.atributos = new Json(this.Nomcarpeta, this.Documentojson);
+                this.atributos.AgregarAtributos(nombre, valor, tipo, llave, requerido);
+
+            } else {
+                alert.setTitle("Aviso");
+                alert.setHeaderText(null);
+                alert.setContentText("Necesita rellenar todos los espacios valido para crear los atributos");
+                System.err.print("Faltan Datos");
+                alert.showAndWait();
+            }
+        } else {
+            alert.setTitle("Aviso");
             alert.setHeaderText(null);
             alert.setContentText("Necesita rellenar todos los espacios valido para crear los atributos");
             System.err.print("Faltan Datos");
             alert.showAndWait();
-       }
+        }
     }
-    
-    
-   
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         cbTipo.setItems(listtipo);
         cbllave.setItems(listllave);
         cbrequerido.setItems(listrequerido);
         tfValorAtributo.setText("Default");
-        
-        
-    }    
-    
+
+    }
+
 }

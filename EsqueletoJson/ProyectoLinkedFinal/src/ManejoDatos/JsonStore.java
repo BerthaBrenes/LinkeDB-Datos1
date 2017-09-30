@@ -144,6 +144,7 @@ public final class JsonStore {
         if (directorio.exists()) {
             try {
                 delete(directorio);
+                metadataPrincipal.EliminarPrimaria(carpeta);
             } catch (Exception e) {
 
             }
