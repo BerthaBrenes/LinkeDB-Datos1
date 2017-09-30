@@ -45,17 +45,20 @@ public class Prueba2Controller implements Initializable {
     private Json atributos;
     public String Nomcarpeta;
 
-    //public void setCarpeta(String nombre){
-    //System.out.println(nombre);
-    //jsonCarpeta = nombre;
-    //}
+    /**
+     * Prueba que verifica si se pasan los datos
+     * @param event 
+     */
     @FXML
     private void NombrePRueba(ActionEvent event) {
         System.out.print(this.Documentojson);
         //this.objetos.AgregarJson(this.jsonAtributo);
 
     }
-
+    /**
+     * Almacena la informacion de los atributos en las listas
+     * @param event 
+     */
     @FXML
     private void AtributosEnlista(ActionEvent event) {
         if (cbTipo.getValue() != null && cbllave.getValue() != null && cbrequerido.getValue() != null) {

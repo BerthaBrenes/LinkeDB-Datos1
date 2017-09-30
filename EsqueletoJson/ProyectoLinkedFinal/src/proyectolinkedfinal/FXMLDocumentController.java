@@ -76,7 +76,10 @@ public class FXMLDocumentController implements Initializable {
     JsonStore store = new JsonStore();
     String jsonAtributo;
     Json objetos;
-
+/**
+ * a raiz de un evento crea las carpetas
+ * @param event 
+ */
     @FXML
     private void CrearCarpeta(ActionEvent event) {
         String carpeta = tfStore.getText();
@@ -95,7 +98,10 @@ public class FXMLDocumentController implements Initializable {
         }
 
     }
-
+/**
+ * A raiz de un evento crea las documentos de las carpetas
+ * @param event 
+ */
     @FXML
     private void CrearDocumento(ActionEvent event) {
         String documenti = tfDocuemento.getText();
@@ -132,7 +138,10 @@ public class FXMLDocumentController implements Initializable {
         }
 
     }
-
+/**
+ * A raiz de un evento llama a la segunda ventana donde voy detallando la informacion de los nuevos atributos
+ * @param event 
+ */
     @FXML
     private void AnadirAtributo(ActionEvent event) {
         TreeItem<String> item = (TreeItem<String>) tvDatos.getSelectionModel().getSelectedItem();
@@ -178,7 +187,10 @@ public class FXMLDocumentController implements Initializable {
             alert.showAndWait();
         }
     }
-
+/**
+ * A raiz de un evento, Almacena los atributos de las listas en la metadata y en el JSon
+ * @param event 
+ */
     @FXML
     private void Commit(ActionEvent event) {
         TreeItem<String> item = (TreeItem<String>) tvDatos.getSelectionModel().getSelectedItem();
@@ -209,7 +221,12 @@ public class FXMLDocumentController implements Initializable {
             alert.showAndWait();
         }
     }
-
+/**
+ * Inicia todo el fxml de la pagina principal
+ * Ademas inicializa con la informacion de la metadata los TreeView
+ * @param url
+ * @param rb 
+ */
     @Override
     public void initialize(URL url, ResourceBundle rb
     ) {
@@ -245,12 +262,19 @@ public class FXMLDocumentController implements Initializable {
         private ContextMenu MenuCar = new ContextMenu();
         private ContextMenu MenuDocs = new ContextMenu();
 
+        /**
+         * es la implementacion de los menuContent
+         * retorna menus
+         */
         public TextFieldTreeCellImpl() {
             MenuItem agregarC = new MenuItem("Agregar Documento");
             MenuItem eliminarC = new MenuItem("Eliminar");
             MenuItem eliminarD = new MenuItem("Eliminar");
             MenuCar.getItems().addAll(agregarC, eliminarC);
             MenuDocs.getItems().add(eliminarD);
+            /**
+             * Agrega un documento a una carpeta
+             */
             agregarC.setOnAction(new EventHandler() {
                 public void handle(Event t) {
                     dialog.setTitle("Nombre documento");
@@ -269,27 +293,40 @@ public class FXMLDocumentController implements Initializable {
 
                 }
             });
+            /**
+             * Elimina una carpeta con todo el contenido dentro
+             */
             eliminarC.setOnAction(new EventHandler() {
                 public void handle(Event t) {
-
-                    System.out.println("no recuerdo" + getStringF());
                     store.Eliminar(getStringF());
+                    TreeItem<String> item = (TreeItem<String>) tvDatos.getSelectionModel().getSelectedItem();
+                    item.getParent().getChildren().remove(item);
                     updateItem(getStringF(), true);
+                    tvDatos.refresh();
 
                 }
             });
+            /**
+             * Funcion que elimina el documento seleccionado
+             */
             eliminarD.setOnAction(new EventHandler() {
                 public void handle(Event t) {
                     System.out.println("docu: " + getStringF()+" algo:" + getTreeItem().getParent().getValue() );
                     Documentos documentos = new Documentos(getTreeItem().getParent().getValue());
                     documentos.EliminarJson(getStringF());
+                    TreeItem<String> item = (TreeItem<String>) tvDatos.getSelectionModel().getSelectedItem();
+                    item.getParent().getChildren().remove(item);
                     updateItem(getStringF(), true);
+                    tvDatos.refresh();
 
                 }
             });
         }
 
         @Override
+        /**
+         * cancela el menu content
+         */
         public void cancelEdit() {
             super.cancelEdit();
 
@@ -298,6 +335,9 @@ public class FXMLDocumentController implements Initializable {
         }
 
         @Override
+        /**
+         * Crea los menus para cada hijo y ademas refresca el treeView
+         */
         public void updateItem(String item, boolean empty) {
             super.updateItem(item, empty);
 
@@ -331,24 +371,6 @@ public class FXMLDocumentController implements Initializable {
             }
         }
 
-        private void createTextField() {
-            textField = new TextField(getStringF());
-            textField.setOnKeyReleased(new EventHandler<KeyEvent>() {
-
-                @Override
-                public void handle(KeyEvent t) {
-                    if (t.getCode()
-                            == KeyCode.ENTER) {
-
-                        commitEdit(textField.getText());
-
-                    } else if (t.getCode() == KeyCode.ESCAPE) {
-                        cancelEdit();
-                    }
-                }
-            });
-
-        }
 
         private String getStringF() {
             return getItem() == null ? "" : getItem().toString();
