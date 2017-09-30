@@ -83,17 +83,34 @@ public class Json {
      */
     public void AgregarAtributos(String nombr, String valo, String tip, String llav, String requerid) {
 
-        System.out.println("entre aqui");
+        System.out.println(listaAtributos.Largo());
         //atributos = new Atributo();
         JSONObject valor = atributos.Atributo(nombr, valo, tip, llav, requerid);
-        listaAtributos.Insertar(valor);
-        listaAtributos.Imprimir();
+        int i = 0;
+        boolean result = true;
+        if (listaAtributos.Largo() != 0) {
+            while (i < listaAtributos.Largo()) {
+                System.out.println(listaAtributos.Iterador(i).get("nombre") + "nombre dado" + nombr);
+                if (nombr.compareTo(listaAtributos.Iterador(i).get("nombre").toString()) == 0) {
+                    result = false;
+                    break;
+                }
+                i++;
+            }
+            if (result) {
+                listaAtributos.Insertar(valor);
+                listaAtributos.Imprimir();
+            } else {
+                System.out.println("hay iguales");
+            }
+        } else {
+            listaAtributos.Insertar(valor);
+            listaAtributos.Imprimir();
+        }
+
         //Metadata metadatatemp = new Metadata(carpeta);
         //metadatatemp.AgregarTemporar(nombreJson, valor);
-       
-
     }
-   
 
     public void CargarLista(String nombrejson) {
         String path = "data/" + carpeta + "/" + nombrejson + ".json";
@@ -130,28 +147,28 @@ public class Json {
      * Guardas los atributos que estan las listas y los escribe en el json
      */
     public void CommitAtributo(String nombre, String valor) {
-        String path = "data/"+this.carpeta+"/"+this.nombreJson+".json";
-        System.out.println("carpeta: "+this.carpeta);
-        System.out.println("documento: "+this.nombreJson);
-         JSONParser parser = new JSONParser();
-         FileReader fr = null;
-         try{
-             fr = new FileReader(path);
-         }catch(Exception e){
-            try{
+        String path = "data/" + this.carpeta + "/" + this.nombreJson + ".json";
+        System.out.println("carpeta: " + this.carpeta);
+        System.out.println("documento: " + this.nombreJson);
+        JSONParser parser = new JSONParser();
+        FileReader fr = null;
+        try {
+            fr = new FileReader(path);
+        } catch (Exception e) {
+            try {
                 File f = new File(path);
                 f.createNewFile();
             } catch (IOException ex) {
-                 Logger.getLogger(Atributo.class.getName()).log(Level.SEVERE, null, ex);
-             }
-         }
-         try{
+                Logger.getLogger(Atributo.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        try {
             Object obj = parser.parse(fr);
             JSONObject jsonObjeto = (JSONObject) obj;
             JSONObject atributosObjeto = new JSONObject();
             JSONArray atributosArray = (JSONArray) jsonObjeto.get("Atributos");
             Iterator<String> iterator = atributosArray.iterator();
-            while(iterator.hasNext()){
+            while (iterator.hasNext()) {
                 iterator.next();
             }
             atributosObjeto.put(nombre, valor);
@@ -166,9 +183,10 @@ public class Json {
             Logger.getLogger(Documentos.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    public void GuardarAtributoMetadata(JSONObject atributo){
+
+    public void GuardarAtributoMetadata(JSONObject atributo) {
         Metadata metadata = new Metadata(carpeta);
-        metadata.InsertarSecundaria(atributo,nombreJson);
+        metadata.InsertarSecundaria(atributo, nombreJson);
     }
 
     /**
@@ -191,8 +209,8 @@ public class Json {
      * @param json
      */
     public void EliminarJson(String json) {
-       Metadata metadata = new Metadata(carpeta);
-       metadata.EliminarJson(json);
+        Metadata metadata = new Metadata(carpeta);
+        metadata.EliminarJson(json);
     }
 
     public void Prueba(String jsonAtributo) {
@@ -203,7 +221,7 @@ public class Json {
      *
      * @return
      */
-    public Lista<JSONObject> getLista(){
+    public Lista<JSONObject> getLista() {
         return listaAtributos;
     }
 

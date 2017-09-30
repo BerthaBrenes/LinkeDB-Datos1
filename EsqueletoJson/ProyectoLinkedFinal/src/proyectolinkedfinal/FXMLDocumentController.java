@@ -198,12 +198,15 @@ public class FXMLDocumentController implements Initializable {
 
             if (item.isLeaf() && item.getParent().getValue() != "Data") {
                 this.objetos = DocFabrica.getInstance().get(item.getParent().getValue(), item.getValue());
-
                 int iterador = objetos.getLista().Largo();
                 for (int i = 0; i < iterador; i++) {
                     System.out.println("agregando:" + i);
+                    
                     objetos.CommitAtributo(objetos.getLista().Iterador(i).get("nombre").toString(), objetos.getLista().Iterador(i).get("valor").toString());
                     objetos.GuardarAtributoMetadata(objetos.getLista().Iterador(i));
+                }
+                for(int i=0;i<objetos.getLista().Largo();++i){
+                    objetos.getLista().EliminarUltimo();
                 }
 
             } else {

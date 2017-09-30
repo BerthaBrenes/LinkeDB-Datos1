@@ -5,6 +5,8 @@
  */
 package proyectolinkedfinal;
 
+import ManejoDatos.Metadata;
+import java.io.File;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -32,7 +34,20 @@ public class ProyectoLinkedFinal extends Application {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        File directorio = new File("data");
+        try {
+            if (directorio.exists()) {
+                
+
+            } else {
+                directorio.mkdir();
+            }
+
+        } catch (Exception e) {
+
+        }
         launch(args);
+        
     }
     
 }

@@ -70,8 +70,9 @@ public class Prueba2Controller implements Initializable {
             String requerido = cbrequerido.getValue().toString();
             if (!nombre.trim().isEmpty() && !tipo.isEmpty() && !llave.isEmpty() && !requerido.isEmpty()) {
                 this.atributos = DocFabrica.getInstance().get(this.Nomcarpeta, this.Documentojson);
-                // this.atributos = new Json(this.Nomcarpeta, this.Documentojson);
+                // this.atributos = new Json(this.Nomcarpeta, this.Documentojson)
                 this.atributos.AgregarAtributos(nombre, valor, tipo, llave, requerido);
+          
 
             } else {
                 alert.setTitle("Aviso");
