@@ -1,0 +1,1 @@
+{"DocumentosJson":["profes"],"nombre":"TEC","profes":[{"tipo":"entero","llave":"primaria","valor":"Default","requerido":"True","nombre":"Id"},{"tipo":"cadena","llave":"primaria","valor":"Default","requerido":"True","nombre":"nombre"}]}

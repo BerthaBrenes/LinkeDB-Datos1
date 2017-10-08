@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="412.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyectolinkedfinal.Prueba2Controller">
+   <children>
+      <Button layoutX="184.0" layoutY="276.0" mnemonicParsing="false" onAction="#AtributosEnlista" prefHeight="25.0" prefWidth="72.0" text="Guardar" />
+      <TextField fx:id="tfNomAtributo" layoutX="145.0" layoutY="54.0" />
+      <TextField fx:id="tfValorAtributo" layoutX="145.0" layoutY="91.0" />
+      <Label layoutX="43.0" layoutY="59.0" text="Nombre" />
+      <Label layoutX="39.0" layoutY="96.0" text="Valor" />
+      <Label layoutX="39.0" layoutY="140.0" text="Tipo" />
+      <Label layoutX="39.0" layoutY="180.0" text="Llave" />
+      <Label layoutX="39.0" layoutY="217.0" text="Requerimiento" />
+      <ComboBox fx:id="cbTipo" layoutX="145.0" layoutY="135.0" prefWidth="150.0" />
+      <ComboBox fx:id="cbllave" layoutX="145.0" layoutY="175.0" prefWidth="150.0" />
+      <ComboBox fx:id="cbrequerido" layoutX="145.0" layoutY="212.0" prefWidth="150.0" />
+   </children>
+</AnchorPane>

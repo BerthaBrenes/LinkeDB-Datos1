@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="354.0" prefWidth="619.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyectolinkedfinal.FXMLDocumentController">
+    <children>
+        <Button fx:id="button" layoutX="404.0" layoutY="93.0" onAction="#CrearCarpeta" text="Agregar Carpeta" />
+      <TreeView fx:id="tvDatos" layoutY="-4.0" prefHeight="354.0" prefWidth="200.0" />
+      <TextField fx:id="tfStore" layoutX="212.0" layoutY="93.0" />
+      <Label layoutX="223.0" layoutY="23.0" prefHeight="25.0" prefWidth="154.0" text="Bienvenido a LinkedDB" />
+      <Label layoutX="212.0" layoutY="63.0" prefHeight="15.0" prefWidth="133.0" text="Agrege una carpeta" />
+      <Button layoutX="404.0" layoutY="137.0" mnemonicParsing="false" onAction="#CrearDocumento" text="Agregar Documento" />
+      <TextField fx:id="tfDocuemento" layoutX="212.0" layoutY="137.0" />
+      <Button layoutX="300.0" layoutY="208.0" mnemonicParsing="false" onAction="#AnadirAtributo" prefHeight="32.0" prefWidth="140.0" text="Agregar Atributo" />
+      <Button layoutX="335.0" layoutY="259.0" mnemonicParsing="false" onAction="#Commit" text="Commit" />
+    </children>
+</AnchorPane>
